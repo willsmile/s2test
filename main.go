@@ -6,6 +6,9 @@ import (
 	"github.com/willsmile/s2test/lib"
 )
 
+// Version of s2test
+const version = "0.1.0"
+
 func main() {
 	var path string
 
