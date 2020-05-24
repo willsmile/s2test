@@ -9,7 +9,7 @@ import (
 const arrow = "==>"
 const smallArrow = " ->"
 
-// Print uses for
+// Print uses for print target, body and status
 func (report Report) Print() {
 	printTarget(report.reqTarget)
 	printResponse(report.respBody, report.respStatus)
