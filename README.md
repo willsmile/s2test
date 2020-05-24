@@ -42,15 +42,11 @@ To prepare a test plan by using the following format (for example, let's name th
   },
   "tasks": [
     {
-      "targetAPI": "/app/settings",
+      "targetAPI": "GET date",
       "usedCookies": ""
     },
     {
-      "targetAPI": "/app/version",
-      "usedCookies": ""
-    },
-    {
-      "targetAPI": "/error",
+      "targetAPI": "GET key&value",
       "usedCookies": ""
     }
   ]
