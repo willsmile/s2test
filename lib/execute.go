@@ -9,8 +9,7 @@ type Report struct {
 }
 
 // Execute uses for execute a test plan
-func Execute(plan Plan, store APIStore) []Report {
-	var reports []Report
+func Execute(plan Plan, store APIStore) {
 
 	for _, task := range plan.Tasks {
 		target := store[task.TargetAPI]
@@ -24,7 +23,5 @@ func Execute(plan Plan, store APIStore) []Report {
 			respStatus: status,
 		}
 		report.Print()
-		reports = append(reports, report)
 	}
-	return reports
 }

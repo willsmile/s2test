@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 
 	"github.com/willsmile/s2test/lib"
 )
@@ -16,9 +15,5 @@ func main() {
 	plan := lib.LoadPlan(path)
 	store := lib.LoadAPIStore(plan.TargetPath)
 
-	reports := lib.Execute(plan, store)
-
-	// Debug
-	fmt.Println("[Reports]")
-	fmt.Println(reports)
+	lib.Execute(plan, store)
 }
