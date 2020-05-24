@@ -10,9 +10,22 @@
 
 ## Usage
 ### Installation
-
+#### Compiling from source
+##### Clone from Github:
 ```
-go get github.com/willsmile/s2test
+$ git clone https://github.com/willsmile/s2test
+$ cd s2test
+```
+
+##### Get the go dependencies:
+```
+$ go get -d ./...
+```
+
+#### Build the tool
+```
+$ go build -o s2test .
+$ ./s2test -v
 ```
 
 ### Test plan preparation
@@ -70,5 +83,5 @@ Also, to write down the information of test target API by using the following fo
 ### Test Plan Execution
 
 ```
-s2test -p plan.json
+./s2test -p plan.json
 ```
