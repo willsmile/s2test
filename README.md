@@ -17,15 +17,15 @@ $ git clone https://github.com/willsmile/s2test
 $ cd s2test
 ```
 
-##### Get the go dependencies:
+##### Get the go dependencies (by go modules):
 ```
-$ go get -d ./...
+$ go mod tidy
 ```
 
 #### Build the tool
 ```
 $ go build -o s2test .
-$ ./s2test -v
+$ ./s2test help
 ```
 
 ### Test plan preparation
