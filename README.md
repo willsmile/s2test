@@ -23,7 +23,7 @@ $ cd s2test
 
 ##### Get the go dependencies (by go modules):
 ```
-$ go mod tidy
+$ GO111MODULE=on go get -v -d
 ```
 
 #### Build the tool
