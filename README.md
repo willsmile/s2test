@@ -9,6 +9,10 @@
 - Reusable test target API information store
 
 ## Usage
+### Preparation
+#### Install Golang
+Please download and install [golang](https://golang.org/dl/)
+
 ### Installation
 #### Compiling from source
 ##### Clone from Github:
@@ -19,7 +23,7 @@ $ cd s2test
 
 ##### Get the go dependencies (by go modules):
 ```
-$ go mod tidy
+$ GO111MODULE=on go get -v -d
 ```
 
 #### Build the tool
@@ -42,11 +46,11 @@ To prepare a test plan by using the following format (for example, let's name th
   },
   "tasks": [
     {
-      "targetAPI": "GET date",
+      "targetAPI": "GET a sample post",
       "usedCookies": ""
     },
     {
-      "targetAPI": "GET key&value",
+      "targetAPI": "GET a sample todo",
       "usedCookies": ""
     }
   ]
@@ -57,17 +61,17 @@ Also, to write down the information of test target API by using the following fo
 
 ```json
 {
-  "GET date": {
-    "description": "Get current date from jsontest.com",
-    "url": "http://date.jsontest.com",
+  "GET a sample post": {
+    "description": "GET a sample post",
+    "url": "https://jsonplaceholder.typicode.com/posts/1",
     "method": "GET",
     "headers": {
       "Content-type": "application/json; charset=utf-8"
     }
   },
-  "GET key&value": {
-    "description": "Get key and value from jsontest.com",
-    "url": "http://echo.jsontest.com/tool/s2test/",
+  "GET a sample todo": {
+    "description": "GET a sample todo",
+    "url": "https://jsonplaceholder.typicode.com/todos/1/",
     "method": "GET",
     "headers": {
       "Content-type": "application/json; charset=utf-8"
