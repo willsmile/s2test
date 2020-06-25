@@ -9,6 +9,10 @@
 - Reusable test target API information store
 
 ## Usage
+### Preparation
+#### Install Golang
+Please download and install [golang](https://golang.org/dl/)
+
 ### Installation
 #### Compiling from source
 ##### Clone from Github:
