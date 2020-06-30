@@ -26,7 +26,8 @@ func main() {
 		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:        "p",
+				Name:        "path",
+				Aliases:     []string{"p"},
 				Value:       "",
 				Usage:       "path of test plan to execute",
 				Destination: &path,
