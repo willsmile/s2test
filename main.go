@@ -34,6 +34,10 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
+			if c.String("path") == "" {
+				path = c.Args().First()
+			}
+
 			plan := lib.LoadPlan(path)
 			store := lib.LoadAPIStore(plan.TargetPath)
 			lib.Execute(plan, store)

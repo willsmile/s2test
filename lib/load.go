@@ -35,6 +35,11 @@ type API struct {
 func LoadPlan(path string) Plan {
 	var plan Plan
 
+	if path == "" {
+		log.Fatal("[Invaild Input Error] empty argument of path")
+		os.Exit(1)
+	}
+
 	raw, error := ioutil.ReadFile(path)
 	if error != nil {
 		log.Fatal("[File Loading Error] ", error)
@@ -49,6 +54,11 @@ func LoadPlan(path string) Plan {
 // LoadAPIStore uses for loading APIStore from a JSON file
 func LoadAPIStore(path string) APIStore {
 	var store APIStore
+
+	if path == "" {
+		log.Fatal("[Invaild Input Error] empty argument of path")
+		os.Exit(1)
+	}
 
 	raw, error := ioutil.ReadFile(path)
 	if error != nil {
