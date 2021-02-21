@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/urfave/cli/v2"
-	"github.com/willsmile/s2test/lib"
 )
 
 // Version of s2test
@@ -38,9 +37,9 @@ func main() {
 				path = c.Args().First()
 			}
 
-			plan := lib.LoadPlan(path)
-			store := lib.LoadAPIStore(plan.TargetPath)
-			lib.Execute(plan, store)
+			plan := LoadPlan(path)
+			store := LoadStore(plan.TargetPath)
+			plan.Execute(store)
 			return nil
 		},
 	}
