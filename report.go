@@ -1,4 +1,4 @@
-package lib
+package main
 
 import (
 	"fmt"
@@ -8,6 +8,14 @@ import (
 
 const arrow = "==>"
 const smallArrow = " ->"
+
+// Report uses for providing a struct for a report of executed task
+type Report struct {
+	reqTarget  string
+	reqCookies string
+	respBody   string
+	respStatus string
+}
 
 // Print uses for print target, body and status
 func (report Report) Print() {
