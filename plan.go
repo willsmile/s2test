@@ -1,4 +1,4 @@
-package lib
+package main
 
 import (
 	"encoding/json"
@@ -21,19 +21,9 @@ type Task struct {
 	UsedCookies string `json:"usedCookies"`
 }
 
-// APIStore uses for providing a struct for storing API information
-type APIStore map[string]API
-
-// API uses for providing a struct for information of a single API
-type API struct {
-	URL     string            `json:"url"`
-	Method  string            `json:"method"`
-	Headers map[string]string `json:"headers"`
-}
-
 // LoadPlan uses for loading a test plan from a JSON file
 func LoadPlan(path string) Plan {
-	var plan Plan
+	var p Plan
 
 	if path == "" {
 		log.Fatal("[Invaild Input Error] empty argument of path")
@@ -46,27 +36,25 @@ func LoadPlan(path string) Plan {
 		os.Exit(1)
 	}
 
-	json.Unmarshal(raw, &plan)
+	json.Unmarshal(raw, &p)
 
-	return plan
+	return p
 }
 
-// LoadAPIStore uses for loading APIStore from a JSON file
-func LoadAPIStore(path string) APIStore {
-	var store APIStore
+// Execute uses for execute a test plan
+func (p Plan) Execute(store Store) {
 
-	if path == "" {
-		log.Fatal("[Invaild Input Error] empty argument of path")
-		os.Exit(1)
+	for _, task := range p.Tasks {
+		target := store[task.TargetAPI]
+		cookies := p.PreparedCookies[task.UsedCookies]
+		body, status := HTTPRequest(target.Method, target.URL, target.Headers, cookies)
+
+		report := Report{
+			reqTarget:  task.TargetAPI,
+			reqCookies: task.UsedCookies,
+			respBody:   body,
+			respStatus: status,
+		}
+		report.Print()
 	}
-
-	raw, error := ioutil.ReadFile(path)
-	if error != nil {
-		log.Fatal("[File Loading Error] ", error)
-		os.Exit(1)
-	}
-
-	json.Unmarshal(raw, &store)
-
-	return store
 }
