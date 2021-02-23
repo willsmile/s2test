@@ -8,10 +8,10 @@ import (
 )
 
 // Store uses for providing a struct for storing API spec information
-type Store map[string]Spec
+type Store map[string]spec
 
-// Spec uses for providing a struct for information of a single API
-type Spec struct {
+// spec uses for providing a struct for information of a single API
+type spec struct {
 	URL     string            `json:"url"`
 	Method  string            `json:"method"`
 	Headers map[string]string `json:"headers"`
