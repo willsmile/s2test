@@ -17,9 +17,14 @@ type spec struct {
 	Headers map[string]string `json:"headers"`
 }
 
+// NewStore constructs an empty store.
+func NewStore() *Store {
+	return &Store{}
+}
+
 // LoadStore uses for loading store from a JSON file
-func LoadStore(path string) Store {
-	var s Store
+func LoadStore(path string) *Store {
+	s := NewStore()
 
 	if path == "" {
 		log.Fatal("[Invaild Input Error] empty argument of path")

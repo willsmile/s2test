@@ -42,11 +42,11 @@ func LoadPlan(path string) Plan {
 }
 
 // Execute uses for execute a test plan
-func (p Plan) Execute(store Store) Report {
+func (p Plan) Execute(store *Store) Report {
 	var report Report
 
 	for _, task := range p.Tasks {
-		target := store[task.TargetAPI]
+		target := (*store)[task.TargetAPI]
 		cookies := p.PreparedCookies[task.UsedCookies]
 		body, status := HTTPRequest(target.Method, target.URL, target.Headers, cookies)
 
