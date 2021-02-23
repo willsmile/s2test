@@ -17,10 +17,15 @@ type Report struct {
 	respStatus string
 }
 
-// Print uses for print target, body and status
-func (report Report) Print() {
-	printTarget(report.reqTarget)
-	printResponse(report.respBody, report.respStatus)
+// Reports uses for providing a struct for slice of reports
+type Reports []Report
+
+// Prints uses for printing out each item in reports
+func (reports Reports) Prints() {
+	for _, r := range reports {
+		printTarget(r.reqTarget)
+		printResponse(r.respBody, r.respStatus)
+	}
 }
 
 // printTarget uses for representing label of target API

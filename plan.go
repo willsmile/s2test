@@ -42,7 +42,8 @@ func LoadPlan(path string) Plan {
 }
 
 // Execute uses for execute a test plan
-func (p Plan) Execute(store Store) {
+func (p Plan) Execute(store Store) Reports {
+	var reports Reports
 
 	for _, task := range p.Tasks {
 		target := store[task.TargetAPI]
@@ -55,6 +56,9 @@ func (p Plan) Execute(store Store) {
 			respBody:   body,
 			respStatus: status,
 		}
-		report.Print()
+
+		reports = append(reports, report)
 	}
+
+	return reports
 }
