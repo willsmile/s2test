@@ -8,18 +8,23 @@ import (
 )
 
 // Store uses for providing a struct for storing API spec information
-type Store map[string]Spec
+type Store map[string]spec
 
-// Spec uses for providing a struct for information of a single API
-type Spec struct {
+// spec uses for providing a struct for information of a single API
+type spec struct {
 	URL     string            `json:"url"`
 	Method  string            `json:"method"`
 	Headers map[string]string `json:"headers"`
 }
 
+// NewStore constructs an empty store.
+func NewStore() *Store {
+	return &Store{}
+}
+
 // LoadStore uses for loading store from a JSON file
-func LoadStore(path string) Store {
-	var s Store
+func LoadStore(path string) *Store {
+	s := NewStore()
 
 	if path == "" {
 		log.Fatal("[Invaild Input Error] empty argument of path")
