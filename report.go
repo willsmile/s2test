@@ -17,14 +17,14 @@ type reportEntity struct {
 	respStatus string
 }
 
-// Reports uses for providing a struct for slice of reportEntity
-type Reports []reportEntity
+// Report uses for providing a struct for slice of reportEntity
+type Report []reportEntity
 
-// Print uses for printing out each reportEntity in reports
-func (reports Reports) Print() {
-	for _, r := range reports {
-		printTarget(r.reqTarget)
-		printResponse(r.respBody, r.respStatus)
+// Print uses for printing out each reportEntity in report
+func (report Report) Print() {
+	for _, v := range report {
+		printTarget(v.reqTarget)
+		printResponse(v.respBody, v.respStatus)
 	}
 }
 
