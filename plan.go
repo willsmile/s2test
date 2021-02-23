@@ -50,7 +50,7 @@ func (p Plan) Execute(store Store) Reports {
 		cookies := p.PreparedCookies[task.UsedCookies]
 		body, status := HTTPRequest(target.Method, target.URL, target.Headers, cookies)
 
-		report := Report{
+		report := reportEntity{
 			reqTarget:  task.TargetAPI,
 			reqCookies: task.UsedCookies,
 			respBody:   body,

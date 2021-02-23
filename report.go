@@ -9,18 +9,18 @@ import (
 const arrow = "==>"
 const smallArrow = " ->"
 
-// Report uses for providing a struct for a report of executed task
-type Report struct {
+// reportEntity uses for providing a struct for a report of executed task
+type reportEntity struct {
 	reqTarget  string
 	reqCookies string
 	respBody   string
 	respStatus string
 }
 
-// Reports uses for providing a struct for slice of reports
-type Reports []Report
+// Reports uses for providing a struct for slice of reportEntity
+type Reports []reportEntity
 
-// Prints uses for printing out each item in reports
+// Prints uses for printing out each reportEntity in reports
 func (reports Reports) Prints() {
 	for _, r := range reports {
 		printTarget(r.reqTarget)
