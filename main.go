@@ -39,7 +39,8 @@ func main() {
 
 			plan := LoadPlan(path)
 			store := LoadStore(plan.TargetPath)
-			plan.Execute(store)
+			report := plan.Execute(store)
+			report.Print()
 			return nil
 		},
 	}
