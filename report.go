@@ -20,8 +20,8 @@ type reportEntity struct {
 // Reports uses for providing a struct for slice of reportEntity
 type Reports []reportEntity
 
-// Prints uses for printing out each reportEntity in reports
-func (reports Reports) Prints() {
+// Print uses for printing out each reportEntity in reports
+func (reports Reports) Print() {
 	for _, r := range reports {
 		printTarget(r.reqTarget)
 		printResponse(r.respBody, r.respStatus)
