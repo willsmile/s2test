@@ -12,11 +12,11 @@ type Plan struct {
 	Goal            string                       `json:"goal"`
 	TargetPath      string                       `json:"targetPath"`
 	PreparedCookies map[string]map[string]string `json:"preparedcookies"`
-	Tasks           []Task                       `json:"tasks"`
+	Tasks           []task                       `json:"tasks"`
 }
 
-// Task uses for providing a struct for task definition
-type Task struct {
+// task uses for providing a struct for task definition
+type task struct {
 	TargetAPI   string `json:"targetAPI"`
 	UsedCookies string `json:"usedCookies"`
 }
