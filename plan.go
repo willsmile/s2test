@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-// Plan uses for providing a struct for test plan information
+// Plan is a plan that contains test information
 type Plan struct {
 	Goal            string                       `json:"goal"`
 	TargetPath      string                       `json:"targetPath"`
@@ -15,7 +15,7 @@ type Plan struct {
 	Tasks           []task                       `json:"tasks"`
 }
 
-// task uses for providing a struct for task definition
+// task is a task definition for test
 type task struct {
 	TargetAPI   string `json:"targetAPI"`
 	UsedCookies string `json:"usedCookies"`
@@ -26,7 +26,7 @@ func NewPlan() *Plan {
 	return &Plan{}
 }
 
-// LoadPlan uses for loading a test plan from a JSON file
+// LoadPlan loads a plan from a JSON file
 func LoadPlan(path string) *Plan {
 	p := NewPlan()
 
@@ -46,7 +46,7 @@ func LoadPlan(path string) *Plan {
 	return p
 }
 
-// Execute uses for execute a test plan
+// Execute excutes a plan
 func (p Plan) Execute(store *Store) Report {
 	var report Report
 

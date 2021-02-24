@@ -7,10 +7,10 @@ import (
 	"os"
 )
 
-// Store uses for providing a struct for storing API spec information
+// Store is a store for API specs
 type Store map[string]spec
 
-// spec uses for providing a struct for information of a single API
+// spec is for information of a single API
 type spec struct {
 	URL     string            `json:"url"`
 	Method  string            `json:"method"`
@@ -22,7 +22,7 @@ func NewStore() *Store {
 	return &Store{}
 }
 
-// LoadStore uses for loading store from a JSON file
+// LoadStore loads a store from a JSON file
 func LoadStore(path string) *Store {
 	s := NewStore()
 
