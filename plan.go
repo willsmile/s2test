@@ -21,9 +21,14 @@ type Task struct {
 	UsedCookies string `json:"usedCookies"`
 }
 
+// NewPlan constructs an empty plan.
+func NewPlan() *Plan {
+	return &Plan{}
+}
+
 // LoadPlan uses for loading a test plan from a JSON file
-func LoadPlan(path string) Plan {
-	var p Plan
+func LoadPlan(path string) *Plan {
+	p := NewPlan()
 
 	if path == "" {
 		log.Fatal("[Invaild Input Error] empty argument of path")
