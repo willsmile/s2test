@@ -7,7 +7,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-// Version of s2test
+// version of s2test
 const version = "0.1.0"
 
 func main() {

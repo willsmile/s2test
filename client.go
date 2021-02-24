@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// HTTPRequest uses for sending a HTTP request
+// HTTPRequest sends a HTTP request
 func HTTPRequest(method string, url string, headers map[string]string, cookies map[string]string) (string, string) {
 	// Prepare request
 	request, error := http.NewRequest(method, url, nil)
