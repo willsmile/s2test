@@ -9,6 +9,9 @@ import (
 const arrow = "==>"
 const smallArrow = " ->"
 
+// Report uses for providing a struct for slice of reportEntity
+type Report []reportEntity
+
 // reportEntity uses for providing a struct for a report of executed task
 type reportEntity struct {
 	reqTarget  string
@@ -16,9 +19,6 @@ type reportEntity struct {
 	respBody   string
 	respStatus string
 }
-
-// Report uses for providing a struct for slice of reportEntity
-type Report []reportEntity
 
 // Print uses for printing out each reportEntity in report
 func (report Report) Print() {
