@@ -1,0 +1,26 @@
+{
+  "GET a sample post": {
+    "description": "GET a sample post",
+    "url": "https://jsonplaceholder.typicode.com/posts/1",
+    "method": "GET",
+    "headers": {
+      "Content-type": "application/json; charset=utf-8"
+    }
+  },
+  "GET a sample todo": {
+    "description": "GET a sample todo",
+    "url": "https://jsonplaceholder.typicode.com/todos/1/",
+    "method": "GET",
+    "headers": {
+      "Content-type": "application/json; charset=utf-8"
+    }
+  },
+  "GET an invaild todo": {
+    "description": "GET an invaild todo",
+    "url": "https://jsonplaceholder.typicode.com/todos/10000/",
+    "method": "GET",
+    "headers": {
+      "Content-type": "application/json; charset=utf-8"
+    }
+  }
+}

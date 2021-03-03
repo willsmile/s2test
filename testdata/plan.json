@@ -1,0 +1,23 @@
+{
+  "goal": "Have a try on s2test",
+  "targetPath": "./api.json",
+  "preparedCookies": {
+    "myCookie": {
+      "cookieName": "cookieValue"
+    }
+  },
+  "tasks": [
+    {
+      "targetAPI": "GET a sample post",
+      "usedCookies": ""
+    },
+    {
+      "targetAPI": "GET a sample todo",
+      "usedCookies": ""
+    },
+    {
+      "targetAPI": "GET an invaild todo",
+      "usedCookies": ""
+    }
+  ]
+}
