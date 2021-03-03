@@ -2,45 +2,59 @@ package main
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
+// Response constains status and body of a http request
+type Response struct {
+	Body   string
+	Status string
+}
+
+// NewResponse constructs an empty response.
+func NewResponse() *Response {
+	return &Response{}
+}
+
 // HTTPRequest sends a HTTP request
-func HTTPRequest(method string, url string, headers map[string]string, cookies map[string]string) (string, string) {
+func HTTPRequest(method string, url string, headers map[string]string, cookies map[string]string) (*Response, error) {
+	response := NewResponse()
+
 	// Prepare request
-	request, error := http.NewRequest(method, url, nil)
+	req, err := http.NewRequest(method, url, nil)
 	// Add headers to request if exists
 	if len(headers) != 0 {
 		for key, value := range headers {
-			request.Header.Add(key, value)
+			req.Header.Add(key, value)
 		}
 	}
 	// Add cookies to request if exists
 	if len(cookies) != 0 {
 		for key, value := range cookies {
 			cookie := &http.Cookie{Name: key, Value: value}
-			request.AddCookie(cookie)
+			req.AddCookie(cookie)
 		}
 	}
-	if error != nil {
-		log.Fatal("[HTTP Request Error] ", error)
+	if err != nil {
+		return response, ErrHTTPRequest
 	}
 
 	// Send request by client
 	client := http.DefaultClient
-	response, error := client.Do(request)
-	if error != nil {
-		log.Fatal("[HTTP Response Error] ", error)
+	resp, err := client.Do(req)
+	if err != nil {
+		return response, ErrHTTPResponse
 	}
-	defer response.Body.Close()
+	defer resp.Body.Close()
 
 	// Read request body and status
-	body, error := ioutil.ReadAll(response.Body)
-	if error != nil {
-		log.Fatal("[IO Error] ", error)
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return response, ErrHTTPRespBody
 	}
-	status := response.Status
 
-	return string(body), string(status)
+	response.Body = string(body)
+	response.Status = string(resp.Status)
+
+	return response, nil
 }
