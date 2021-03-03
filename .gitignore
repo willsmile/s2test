@@ -17,4 +17,4 @@ s2test
 # vendor/
 
 # Test plan or API
-*.json
+/*.json
