@@ -37,10 +37,19 @@ func main() {
 				path = c.Args().First()
 			}
 
-			plan := LoadPlan(path)
-			store := LoadStore(plan.TargetPath)
+			plan, err := LoadPlan(path)
+			if err != nil {
+				return err
+			}
+
+			store, err := LoadStore(plan.TargetPath)
+			if err != nil {
+				return err
+			}
+
 			report := plan.Execute(store)
 			report.Print()
+
 			return nil
 		},
 	}
