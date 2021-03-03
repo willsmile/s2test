@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
-	"os"
 )
 
 // Plan is a plan that contains test information
@@ -27,23 +25,21 @@ func NewPlan() *Plan {
 }
 
 // LoadPlan loads a plan from a JSON file
-func LoadPlan(path string) *Plan {
-	p := NewPlan()
+func LoadPlan(path string) (*Plan, error) {
+	plan := NewPlan()
 
 	if path == "" {
-		log.Fatal("[Invaild Input Error] empty argument of path")
-		os.Exit(1)
+		return plan, ErrEmptyPath
 	}
 
-	raw, error := ioutil.ReadFile(path)
+	src, error := ioutil.ReadFile(path)
 	if error != nil {
-		log.Fatal("[File Loading Error] ", error)
-		os.Exit(1)
+		return plan, ErrReadFile
 	}
 
-	json.Unmarshal(raw, &p)
+	json.Unmarshal(src, &plan)
 
-	return p
+	return plan, nil
 }
 
 // Execute excutes a plan
@@ -53,13 +49,13 @@ func (p Plan) Execute(store *Store) Report {
 	for _, task := range p.Tasks {
 		target := (*store)[task.TargetAPI]
 		cookies := p.PreparedCookies[task.UsedCookies]
-		body, status := HTTPRequest(target.Method, target.URL, target.Headers, cookies)
+		resp, _ := HTTPRequest(target.Method, target.URL, target.Headers, cookies)
 
 		entity := reportEntity{
 			reqTarget:  task.TargetAPI,
 			reqCookies: task.UsedCookies,
-			respBody:   body,
-			respStatus: status,
+			respBody:   resp.Body,
+			respStatus: resp.Status,
 		}
 
 		report = append(report, entity)
