@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
-	"os"
 )
 
 // Store is a store for API specs
@@ -23,21 +21,19 @@ func NewStore() *Store {
 }
 
 // LoadStore loads a store from a JSON file
-func LoadStore(path string) *Store {
-	s := NewStore()
+func LoadStore(path string) (*Store, error) {
+	store := NewStore()
 
 	if path == "" {
-		log.Fatal("[Invaild Input Error] empty argument of path")
-		os.Exit(1)
+		return store, ErrEmptyPath
 	}
 
-	raw, error := ioutil.ReadFile(path)
-	if error != nil {
-		log.Fatal("[File Loading Error] ", error)
-		os.Exit(1)
+	src, err := ioutil.ReadFile(path)
+	if err != nil {
+		return store, ErrReadFile
 	}
 
-	json.Unmarshal(raw, &s)
+	json.Unmarshal(src, &store)
 
-	return s
+	return store, nil
 }
