@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 )
 
 // Plan is a plan that contains test information
@@ -32,7 +32,7 @@ func LoadPlan(path string) (*Plan, error) {
 		return plan, ErrEmptyPath
 	}
 
-	src, error := ioutil.ReadFile(path)
+	src, error := os.ReadFile(path)
 	if error != nil {
 		return plan, ErrReadFile
 	}

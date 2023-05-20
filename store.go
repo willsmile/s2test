@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 )
 
 // Store is a store for API specs
@@ -28,7 +28,7 @@ func LoadStore(path string) (*Store, error) {
 		return store, ErrEmptyPath
 	}
 
-	src, err := ioutil.ReadFile(path)
+	src, err := os.ReadFile(path)
 	if err != nil {
 		return store, ErrReadFile
 	}
