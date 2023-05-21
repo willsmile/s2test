@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -48,7 +48,7 @@ func HTTPRequest(method string, url string, headers map[string]string, cookies m
 	defer resp.Body.Close()
 
 	// Read request body and status
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return response, ErrHTTPRespBody
 	}
