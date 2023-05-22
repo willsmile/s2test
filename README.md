@@ -39,19 +39,26 @@ To prepare a test plan by using the following format (for example, let's name th
 {
   "goal": "Have a try on s2test",
   "targetPath": "./api.json",
-  "preparedCookies": {
-    "myCookie": {
-      "cookieName": "cookieValue"
+  "authMethods": {
+    "cookieA": {
+      "type": "Cookie",
+      "name": "cookieName",
+      "value": "cookieValue"
+    },
+    "tokenA": {
+      "type": "OAuth 2.0",
+      "prefix": "Bearer",
+      "value": "tokenValue"
     }
   },
   "tasks": [
     {
       "targetAPI": "GET a sample post",
-      "usedCookies": ""
+      "authMethod": "tokenA"
     },
     {
       "targetAPI": "GET a sample todo",
-      "usedCookies": ""
+      "authMethod": "tokenA"
     }
   ]
 }
