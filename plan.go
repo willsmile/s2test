@@ -7,21 +7,16 @@ import (
 
 // Plan is a plan that contains test information
 type Plan struct {
-	Goal            string                       `json:"goal"`
-	TargetPath      string                       `json:"targetPath"`
-	PreparedCookies map[string]map[string]string `json:"preparedcookies"`
-	Tasks           []task                       `json:"tasks"`
+	Goal        string                       `json:"goal"`
+	TargetPath  string                       `json:"targetPath"`
+	AuthMethods map[string]map[string]string `json:"authMethods"`
+	Tasks       []task                       `json:"tasks"`
 }
 
 // task is a task definition for test
 type task struct {
-	TargetAPI   string `json:"targetAPI"`
-	UsedCookies string `json:"usedCookies"`
-}
-
-// NewPlan constructs an empty plan.
-func NewPlan() *Plan {
-	return &Plan{}
+	TargetAPI  string `json:"targetAPI"`
+	AuthMethod string `json:"authMethod"`
 }
 
 // LoadPlan loads a plan from a JSON file
