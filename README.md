@@ -8,30 +8,28 @@
   - Various cookies for test can be prepared
 - Reusable test target API information store
 
-## Usage
+## Installation
 ### Preparation
-#### Install Golang
 Please download and install [golang](https://golang.org/dl/)
 
-### Installation
-#### Compiling from source
-##### Clone from Github:
+### Clone from Github
 ```
 $ git clone https://github.com/willsmile/s2test
 $ cd s2test
 ```
 
-##### Get the go dependencies (by go modules):
+### Get the go dependencies (by go modules):
 ```
 $ GO111MODULE=on go get -v -d
 ```
 
-#### Build the tool
+### Build the tool
 ```
 $ go build -o s2test .
 $ ./s2test help
 ```
 
+## Setup and configuration
 ### Test plan preparation
 To prepare a test plan by using the following format (for example, let's name the file 'plan.json').
 
