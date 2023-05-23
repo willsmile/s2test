@@ -13,4 +13,6 @@ var (
 	ErrHTTPResponse = errors.New("failed to receive a http response")
 	// ErrHTTPRespBody is returned when failed to read a http response body
 	ErrHTTPRespBody = errors.New("failed to read a http response body")
+	// ErrUndefinedAPI is returned when the target API is undefined
+	ErrUndefinedAPI = errors.New("target API is undefined")
 )
