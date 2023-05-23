@@ -1,6 +1,6 @@
 {
   "goal": "Have a try on s2test",
-  "targetPath": "./api.json",
+  "targetPath": "testdata/api.json",
   "authMethods": {
     "cookieA": {
       "type": "Cookie",
