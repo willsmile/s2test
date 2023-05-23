@@ -15,14 +15,9 @@ type spec struct {
 	Headers map[string]string `json:"headers"`
 }
 
-// NewStore constructs an empty store.
-func NewStore() *Store {
-	return &Store{}
-}
-
 // LoadStore loads a store from a JSON file
 func LoadStore(path string) (*Store, error) {
-	store := NewStore()
+	store := &Store{}
 
 	if path == "" {
 		return store, ErrEmptyPath
