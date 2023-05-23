@@ -25,6 +25,10 @@
     {
       "targetAPI": "GET an invaild todo",
       "authMethod": ""
+    },
+    {
+      "targetAPI": "Undefined target",
+      "authMethod": ""
     }
   ]
 }
