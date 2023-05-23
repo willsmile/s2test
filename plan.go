@@ -1,5 +1,10 @@
 package main
 
+const (
+	RequestSent    = "SENT"
+	RequestNotSent = "NOT SENT"
+)
+
 // Plan is a plan that contains test information
 type Plan struct {
 	Goal        string                       `json:"goal"`
@@ -19,14 +24,21 @@ func (p Plan) Execute(store *Store) Report {
 	var report Report
 
 	for _, task := range p.Tasks {
-		target := (*store)[task.TargetAPI]
+		resp := &Response{}
+		result := RequestNotSent
+
+		target, err := (*store).Search(task.TargetAPI)
 		authMethod := p.AuthMethods[task.AuthMethod]
 		authInfo := NewAuthInfo(authMethod)
-		resp, _ := HTTPRequest(target.Method, target.URL, target.Headers, authInfo)
+		if err == nil {
+			resp, _ = HTTPRequest(target.Method, target.URL, target.Headers, authInfo)
+			result = RequestSent
+		}
 
 		entity := reportEntity{
 			reqTarget:     task.TargetAPI,
 			reqAuthMethod: task.AuthMethod,
+			result:        result,
 			respBody:      resp.Body,
 			respStatus:    resp.Status,
 		}
