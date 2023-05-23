@@ -43,14 +43,15 @@ func (p Plan) Execute(store *Store) Report {
 
 	for _, task := range p.Tasks {
 		target := (*store)[task.TargetAPI]
-		cookies := p.PreparedCookies[task.UsedCookies]
-		resp, _ := HTTPRequest(target.Method, target.URL, target.Headers, cookies)
+		authMethod := p.AuthMethods[task.AuthMethod]
+		authInfo := NewAuthInfo(authMethod)
+		resp, _ := HTTPRequest(target.Method, target.URL, target.Headers, authInfo)
 
 		entity := reportEntity{
-			reqTarget:  task.TargetAPI,
-			reqCookies: task.UsedCookies,
-			respBody:   resp.Body,
-			respStatus: resp.Status,
+			reqTarget:     task.TargetAPI,
+			reqAuthMethod: task.AuthMethod,
+			respBody:      resp.Body,
+			respStatus:    resp.Status,
 		}
 
 		report = append(report, entity)

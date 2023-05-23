@@ -14,10 +14,10 @@ type Report []reportEntity
 
 // reportEntity is a report entity of each executed task
 type reportEntity struct {
-	reqTarget  string
-	reqCookies string
-	respBody   string
-	respStatus string
+	reqTarget     string
+	reqAuthMethod string
+	respBody      string
+	respStatus    string
 }
 
 // Print prints out each reportEntity in Report

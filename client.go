@@ -17,8 +17,8 @@ func NewResponse() *Response {
 }
 
 // HTTPRequest sends a HTTP request
-func HTTPRequest(method string, url string, headers map[string]string, cookies map[string]string) (*Response, error) {
-	response := NewResponse()
+func HTTPRequest(method string, url string, headers map[string]string, auth AuthInfo) (*Response, error) {
+	response := &Response{}
 
 	// Prepare request
 	req, err := http.NewRequest(method, url, nil)
@@ -28,15 +28,9 @@ func HTTPRequest(method string, url string, headers map[string]string, cookies m
 			req.Header.Add(key, value)
 		}
 	}
-	// Add cookies to request if exists
-	if len(cookies) != 0 {
-		for key, value := range cookies {
-			cookie := &http.Cookie{Name: key, Value: value}
-			req.AddCookie(cookie)
-		}
-	}
-	if err != nil {
-		return response, ErrHTTPRequest
+	// Attach AuthInfo to request if exists
+	if auth != nil {
+		auth.Attach(req)
 	}
 
 	// Send request by client
