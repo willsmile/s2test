@@ -21,7 +21,7 @@ type task struct {
 
 // LoadPlan loads a plan from a JSON file
 func LoadPlan(path string) (*Plan, error) {
-	plan := NewPlan()
+	plan := &Plan{}
 
 	if path == "" {
 		return plan, ErrEmptyPath

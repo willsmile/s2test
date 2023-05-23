@@ -11,17 +11,16 @@ type Response struct {
 	Status string
 }
 
-// NewResponse constructs an empty response.
-func NewResponse() *Response {
-	return &Response{}
-}
-
 // HTTPRequest sends a HTTP request
 func HTTPRequest(method string, url string, headers map[string]string, auth AuthInfo) (*Response, error) {
 	response := &Response{}
 
 	// Prepare request
 	req, err := http.NewRequest(method, url, nil)
+	if err != nil {
+		return response, ErrHTTPRequest
+	}
+
 	// Add headers to request if exists
 	if len(headers) != 0 {
 		for key, value := range headers {
