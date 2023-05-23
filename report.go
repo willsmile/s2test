@@ -6,8 +6,10 @@ import (
 	"github.com/fatih/color"
 )
 
-const arrow = "==>"
-const smallArrow = " ->"
+const (
+	arrow      = "==>"
+	smallArrow = " ->"
+)
 
 // Report is a slice of report entities
 type Report []reportEntity
@@ -16,6 +18,7 @@ type Report []reportEntity
 type reportEntity struct {
 	reqTarget     string
 	reqAuthMethod string
+	result        string
 	respBody      string
 	respStatus    string
 }
@@ -23,23 +26,39 @@ type reportEntity struct {
 // Print prints out each reportEntity in Report
 func (report Report) Print() {
 	for _, v := range report {
-		printTarget(v.reqTarget)
-		printResponse(v.respBody, v.respStatus)
+		v.printTarget()
+		v.printResult()
+		v.printResponse()
 	}
 }
 
-// printTarget prints a label of target API
-func printTarget(target string) {
-	c := color.New(color.FgGreen, color.Bold)
-	c.Printf("%s Target API: %s\n", arrow, target)
+// printTarget prints reqTarget in reportEntity
+func (entity reportEntity) printTarget() {
+	c := color.New(color.FgYellow, color.Bold)
+	c.Printf("%s Target API: %s\n", arrow, entity.reqTarget)
 }
 
-// printResponse prints body and state of repsonse
-func printResponse(body string, state string) {
-	c := color.New(color.FgBlue)
+// printTarget prints result in reportEntity
+func (entity reportEntity) printResult() {
+	var c *color.Color
 
-	c.Printf("%s Response state: ", smallArrow)
-	fmt.Println(state)
-	c.Printf("%s Response body: ", smallArrow)
-	fmt.Println(body)
+	if entity.result == RequestSent {
+		c = color.New(color.FgGreen)
+	} else {
+		c = color.New(color.FgRed)
+	}
+
+	c.Printf("%s Result: %s\n", smallArrow, entity.result)
+}
+
+// printResponse prints respBody and respStatus in reportEntity
+// when result is not RequestNotSent
+func (entity reportEntity) printResponse() {
+	if entity.result == RequestSent {
+		c := color.New(color.FgBlue)
+		c.Printf("%s Response state: ", smallArrow)
+		fmt.Println(entity.respStatus)
+		c.Printf("%s Response body: ", smallArrow)
+		fmt.Println(entity.respBody)
+	}
 }
