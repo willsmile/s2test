@@ -11,7 +11,12 @@ import (
 const version = "0.1.0"
 
 func main() {
-	var path string
+	var (
+		path  string
+		plan  Plan
+		store Store
+		err   error
+	)
 
 	app := &cli.App{
 		Name:    "s2test",
@@ -37,17 +42,17 @@ func main() {
 				path = c.Args().First()
 			}
 
-			plan, err := LoadPlan(path)
+			err = LoadJSON(path, &plan)
 			if err != nil {
 				return err
 			}
 
-			store, err := LoadStore(plan.TargetPath)
+			err = LoadJSON(plan.TargetPath, &store)
 			if err != nil {
 				return err
 			}
 
-			report := plan.Execute(store)
+			report := plan.Execute(&store)
 			report.Print()
 
 			return nil

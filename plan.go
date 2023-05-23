@@ -1,10 +1,5 @@
 package main
 
-import (
-	"encoding/json"
-	"os"
-)
-
 // Plan is a plan that contains test information
 type Plan struct {
 	Goal        string                       `json:"goal"`
@@ -17,24 +12,6 @@ type Plan struct {
 type task struct {
 	TargetAPI  string `json:"targetAPI"`
 	AuthMethod string `json:"authMethod"`
-}
-
-// LoadPlan loads a plan from a JSON file
-func LoadPlan(path string) (*Plan, error) {
-	plan := &Plan{}
-
-	if path == "" {
-		return plan, ErrEmptyPath
-	}
-
-	src, error := os.ReadFile(path)
-	if error != nil {
-		return plan, ErrReadFile
-	}
-
-	json.Unmarshal(src, &plan)
-
-	return plan, nil
 }
 
 // Execute excutes a plan
