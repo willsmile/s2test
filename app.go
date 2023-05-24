@@ -14,8 +14,8 @@ func New() *cli.App {
 		Version: version,
 		Authors: []*cli.Author{
 			{
-				Name:  "willsmile",
-				Email: "smile.v.chen@gmail.com",
+				Name:  "Wei Chen (willsmile)",
+				Email: "willsmile.me@gmail.com",
 			},
 		},
 		Flags: []cli.Flag{
