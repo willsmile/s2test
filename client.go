@@ -11,6 +11,7 @@ type Response struct {
 	Status string
 }
 
+// DefaultResponse create a response with default values
 func DefaultResponse() *Response {
 	return &Response{
 		Body:   "None",
