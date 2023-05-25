@@ -28,7 +28,7 @@ func (p Plan) Execute(store *Store) (Report, error) {
 	}
 
 	for _, task := range p.Tasks {
-		resp := &Response{}
+		resp := DefaultResponse()
 		result := RequestNotSent
 
 		target, err := (*store).Search(task.TargetAPI)

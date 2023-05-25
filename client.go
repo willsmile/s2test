@@ -11,6 +11,13 @@ type Response struct {
 	Status string
 }
 
+func DefaultResponse() *Response {
+	return &Response{
+		Body:   "None",
+		Status: "None",
+	}
+}
+
 // HTTPRequest sends a HTTP request
 func HTTPRequest(method string, url string, headers map[string]string, auth AuthInfo) (*Response, error) {
 	response := &Response{}
