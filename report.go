@@ -24,12 +24,18 @@ type reportEntity struct {
 }
 
 // Print prints out each reportEntity in Report
-func (report Report) Print() {
+func (report Report) Print() error {
+	if len(report) == 0 {
+		return ErrEmptyReport
+	}
+
 	for _, v := range report {
 		v.printTarget()
 		v.printResult()
 		v.printResponse()
 	}
+
+	return nil
 }
 
 // printTarget prints reqTarget in reportEntity

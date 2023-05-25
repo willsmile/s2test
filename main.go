@@ -7,6 +7,11 @@ import (
 
 func main() {
 	if err := New().Run(os.Args); err != nil {
-		log.Fatal("[Error] ", err)
+		switch err {
+		case ErrEmptyReport:
+			log.Print("[INFO] ", err)
+		default:
+			log.Fatal("[ERROR] ", err)
+		}
 	}
 }
