@@ -15,6 +15,8 @@ var (
 	ErrHTTPRespBody = errors.New("failed to read a http response body")
 	// ErrUndefinedAPI is returned when the target API is undefined
 	ErrUndefinedAPI = errors.New("target API is undefined")
+	// ErrNoTasksToExecute is returned when there are no tasks to execute
+	ErrNoTasksToExecute = errors.New("there are no tasks to execute")
 	// ErrEmptyReport is returned when report is empty
 	ErrEmptyReport = errors.New("nothing to print due to empty report")
 )

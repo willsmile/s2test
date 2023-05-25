@@ -20,8 +20,12 @@ type task struct {
 }
 
 // Execute excutes a plan
-func (p Plan) Execute(store *Store) Report {
+func (p Plan) Execute(store *Store) (Report, error) {
 	var report Report
+
+	if len(p.Tasks) == 0 {
+		return report, ErrNoTasksToExecute
+	}
 
 	for _, task := range p.Tasks {
 		resp := &Response{}
@@ -46,5 +50,5 @@ func (p Plan) Execute(store *Store) Report {
 		report = append(report, entity)
 	}
 
-	return report
+	return report, nil
 }

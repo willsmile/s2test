@@ -1,0 +1,17 @@
+{
+  "goal": "Have a try on s2test",
+  "targetPath": "testdata/api.json",
+  "authMethods": {
+    "cookieA": {
+      "type": "Cookie",
+      "name": "cookieName",
+      "value": "cookieValue"
+    },
+    "tokenA": {
+      "type": "OAuth 2.0",
+      "prefix": "Bearer",
+      "value": "tokenValue"
+    }
+  },
+  "tasks": []
+}

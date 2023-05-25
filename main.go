@@ -8,7 +8,7 @@ import (
 func main() {
 	if err := New().Run(os.Args); err != nil {
 		switch err {
-		case ErrEmptyReport:
+		case ErrNoTasksToExecute, ErrEmptyReport:
 			log.Print("[INFO] ", err)
 		default:
 			log.Fatal("[ERROR] ", err)

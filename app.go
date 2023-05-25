@@ -44,6 +44,11 @@ func New() *cli.App {
 				return err
 			}
 
+			report, err := plan.Execute(&store)
+			if err != nil {
+				return err
+			}
+
 			err = report.Print()
 			if err != nil {
 				return err
