@@ -6,7 +6,7 @@ import (
 )
 
 type Config interface {
-	Plan | Store
+	Plan | Endpoints
 }
 
 func LoadJSON[T Config](path string, t *T) error {
