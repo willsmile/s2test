@@ -4,8 +4,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-// version of s2test
-const version = "0.3.0"
+const (
+	Name    = "s2test"
+	version = "0.3.0"
+)
 
 func New() *cli.App {
 	app := &cli.App{
