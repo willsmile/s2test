@@ -19,6 +19,10 @@
       "authMethod": ""
     },
     {
+      "targetAPI": "POST a sample post",
+      "authMethod": ""
+    },
+    {
       "targetAPI": "GET a sample todo",
       "authMethod": ""
     },
