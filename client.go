@@ -20,11 +20,11 @@ func DefaultResponse() *Response {
 }
 
 // HTTPRequest sends a HTTP request
-func HTTPRequest(s spec, auth AuthInfo) (*Response, error) {
+func HTTPRequest(e Endpoint, auth AuthInfo) (*Response, error) {
 	response := &Response{}
 
-	// Create a request by spec
-	request, err := s.NewRequest(auth)
+	// Create a request by Endpoint
+	request, err := e.NewRequest(auth)
 	if err != nil {
 		return response, ErrHTTPRequest
 	}

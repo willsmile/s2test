@@ -6,34 +6,34 @@ import (
 	"net/http"
 )
 
-// spec is for information of a single API
-type spec struct {
+// Endpoint is for information of a single API endpoint
+type Endpoint struct {
 	URL     string            `json:"url"`
 	Method  string            `json:"method"`
 	Headers map[string]string `json:"headers"`
 	Body    json.RawMessage   `json:"body"`
 }
 
-func (s *spec) NewRequest(auth AuthInfo) (*http.Request, error) {
+func (e *Endpoint) NewRequest(auth AuthInfo) (*http.Request, error) {
 	var (
 		req *http.Request
 		err error
 	)
 
 	// Prepare a request
-	if s.Method == http.MethodPost {
-		buf := bytes.NewBuffer(s.Body)
-		req, err = http.NewRequest(s.Method, s.URL, buf)
+	if e.Method == http.MethodPost {
+		buf := bytes.NewBuffer(e.Body)
+		req, err = http.NewRequest(e.Method, e.URL, buf)
 	} else {
-		req, err = http.NewRequest(s.Method, s.URL, nil)
+		req, err = http.NewRequest(e.Method, e.URL, nil)
 	}
 	if err != nil {
 		return nil, err
 	}
 
 	// Add headers to request if exists
-	if len(s.Headers) != 0 {
-		for key, value := range s.Headers {
+	if len(e.Headers) != 0 {
+		for key, value := range e.Headers {
 			req.Header.Add(key, value)
 		}
 	}
@@ -46,8 +46,8 @@ func (s *spec) NewRequest(auth AuthInfo) (*http.Request, error) {
 	return req, nil
 }
 
-func (s spec) available() bool {
-	if s.URL != "" && s.Method != "" {
+func (e Endpoint) available() bool {
+	if e.URL != "" && e.Method != "" {
 		return true
 	} else {
 		return false

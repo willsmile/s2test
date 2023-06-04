@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewRequest_ValidEndpoint(t *testing.T) {
-	s := spec{
+	s := Endpoint{
 		Method:  "GET",
 		URL:     "https://jsonplaceholder.typicode.com/posts/1",
 		Headers: map[string]string{},
@@ -21,7 +21,7 @@ func TestNewRequest_ValidEndpoint(t *testing.T) {
 }
 
 func TestNewRequest_InvalidEndpoint(t *testing.T) {
-	s := spec{
+	s := Endpoint{
 		Method:  "*?",
 		URL:     "https://jsonplaceholder.typicode.com/posts/1",
 		Headers: map[string]string{},
