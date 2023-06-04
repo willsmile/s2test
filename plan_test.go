@@ -6,7 +6,7 @@ import (
 )
 
 func TestPlanExecute_WithTasks(t *testing.T) {
-	store := Store{
+	store := Endpoints{
 		"GET a sample post": Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
@@ -46,7 +46,7 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 }
 
 func TestPlanExecute_WithoutTasks(t *testing.T) {
-	store := Store{
+	store := Endpoints{
 		"GET a sample post": Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",

@@ -29,7 +29,7 @@ func New() *cli.App {
 		Action: func(c *cli.Context) error {
 			var (
 				plan  Plan
-				store Store
+				store Endpoints
 				err   error
 			)
 

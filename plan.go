@@ -20,7 +20,7 @@ type task struct {
 }
 
 // Execute excutes a plan
-func (p Plan) Execute(store *Store) (Report, error) {
+func (p Plan) Execute(store *Endpoints) (Report, error) {
 	var report Report
 
 	if len(p.Tasks) == 0 {
