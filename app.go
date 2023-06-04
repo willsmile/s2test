@@ -5,7 +5,7 @@ import (
 )
 
 // version of s2test
-const version = "0.2.0"
+const version = "0.3.0"
 
 func New() *cli.App {
 	app := &cli.App{
