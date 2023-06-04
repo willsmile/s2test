@@ -7,14 +7,14 @@ import (
 
 func TestStoreSearch_Available(t *testing.T) {
 	store := Store{
-		"GET a sample post": spec{
+		"GET a sample post": Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": spec{
+		"GET a sample todo": Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
@@ -31,14 +31,14 @@ func TestStoreSearch_Available(t *testing.T) {
 
 func TestStoreSearch_NotAvailable(t *testing.T) {
 	store := Store{
-		"GET a sample post": spec{
+		"GET a sample post": Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": spec{
+		"GET a sample todo": Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{

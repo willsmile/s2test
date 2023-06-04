@@ -35,7 +35,7 @@ func (p Plan) Execute(store *Store) (Report, error) {
 		authMethod := p.AuthMethods[task.AuthMethod]
 		authInfo := NewAuthInfo(authMethod)
 		if err == nil {
-			resp, _ = HTTPRequest(target.Method, target.URL, target.Headers, authInfo)
+			resp, _ = HTTPRequest(target, authInfo)
 			result = RequestSent
 		}
 

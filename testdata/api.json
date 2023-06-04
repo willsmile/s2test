@@ -7,6 +7,19 @@
       "Content-type": "application/json; charset=utf-8"
     }
   },
+  "POST a sample post": {
+    "description": "POST a sample post",
+    "url": "https://jsonplaceholder.typicode.com/posts",
+    "method": "POST",
+    "headers": {
+      "Content-type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "title": "foo",
+      "body": "bar",
+      "userId": "1"
+    }
+  },
   "GET a sample todo": {
     "description": "GET a sample todo",
     "url": "https://jsonplaceholder.typicode.com/todos/1/",
