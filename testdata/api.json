@@ -15,9 +15,9 @@
       "Content-type": "application/json; charset=utf-8"
     },
     "body": {
-      "title": "foo",
-      "body": "bar",
-      "userId": "1"
+      "title": "sample post title",
+      "body": "sample post body",
+      "userId": "#{sample_use_id}"
     }
   },
   "GET a sample todo": {
