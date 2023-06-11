@@ -20,7 +20,10 @@
     },
     {
       "targetAPI": "POST a sample post",
-      "authMethod": ""
+      "authMethod": "",
+      "data": {
+        "sample_use_id": "1"
+      }
     },
     {
       "targetAPI": "GET a sample todo",

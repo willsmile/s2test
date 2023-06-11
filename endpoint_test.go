@@ -71,8 +71,9 @@ func TestNewRequest_ValidEndpoint(t *testing.T) {
 		Body:    json.RawMessage{},
 	}
 	auth := cookie{}
+	data := CustomizedData{}
 
-	_, err := s.NewRequest(auth)
+	_, err := s.NewRequest(auth, data)
 	if err != nil {
 		t.Fatalf("s.NewRequest(auth), expected none error, got %s", err)
 	}
@@ -86,8 +87,9 @@ func TestNewRequest_InvalidEndpoint(t *testing.T) {
 		Body:    json.RawMessage{},
 	}
 	auth := cookie{}
+	data := CustomizedData{}
 
-	_, err := s.NewRequest(auth)
+	_, err := s.NewRequest(auth, data)
 	if err == nil {
 		t.Fatalf("s.NewRequest(auth), expected error %s, got none", err)
 	}
