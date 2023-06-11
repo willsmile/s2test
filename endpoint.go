@@ -26,7 +26,7 @@ func (store *Endpoints) Search(target string) (Endpoint, error) {
 	}
 }
 
-func (e *Endpoint) NewRequest(auth AuthInfo) (*http.Request, error) {
+func (e *Endpoint) NewRequest(auth AuthInfo, data CustomizedData) (*http.Request, error) {
 	var (
 		req *http.Request
 		err error
@@ -34,7 +34,8 @@ func (e *Endpoint) NewRequest(auth AuthInfo) (*http.Request, error) {
 
 	// Prepare a request
 	if e.Method == http.MethodPost {
-		buf := bytes.NewBuffer(e.Body)
+		body := data.Apply(e.Body)
+		buf := bytes.NewBufferString(body)
 		req, err = http.NewRequest(e.Method, e.URL, buf)
 	} else {
 		req, err = http.NewRequest(e.Method, e.URL, nil)

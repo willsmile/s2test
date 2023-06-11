@@ -15,8 +15,9 @@ type Plan struct {
 
 // task is a task definition for test
 type task struct {
-	TargetAPI  string `json:"targetAPI"`
-	AuthMethod string `json:"authMethod"`
+	TargetAPI  string         `json:"targetAPI"`
+	AuthMethod string         `json:"authMethod"`
+	Data       CustomizedData `json:"data"`
 }
 
 // Execute excutes a plan
@@ -35,7 +36,7 @@ func (p Plan) Execute(store *Endpoints) (Report, error) {
 		authMethod := p.AuthMethods[task.AuthMethod]
 		authInfo := NewAuthInfo(authMethod)
 		if err == nil {
-			resp, _ = HTTPRequest(target, authInfo)
+			resp, _ = HTTPRequest(target, authInfo, task.Data)
 			result = RequestSent
 		}
 
