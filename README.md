@@ -55,8 +55,11 @@ To prepare a test plan by using the following format (for example, let's name th
       "authMethod": "tokenA"
     },
     {
-      "targetAPI": "GET a sample todo",
-      "authMethod": "tokenA"
+      "targetAPI": "POST a sample post",
+      "authMethod": "tokenA",
+      "data": {
+        "sample_use_id": "1"
+      }
     }
   ]
 }
@@ -74,12 +77,17 @@ Also, to write down the information of test target API by using the following fo
       "Content-type": "application/json; charset=utf-8"
     }
   },
-  "GET a sample todo": {
-    "description": "GET a sample todo",
-    "url": "https://jsonplaceholder.typicode.com/todos/1/",
-    "method": "GET",
+  "POST a sample post": {
+    "description": "POST a sample post",
+    "url": "https://jsonplaceholder.typicode.com/posts",
+    "method": "POST",
     "headers": {
       "Content-type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "title": "sample post title",
+      "body": "sample post body",
+      "userId": "#{sample_use_id}"
     }
   }
 }
