@@ -27,7 +27,7 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 		Goal:        "For test",
 		TargetPath:  "testdata/api.json",
 		AuthMethods: map[string]map[string]string{},
-		Tasks: []task{
+		Tasks: []Task{
 			{
 				TargetAPI:  "GET a sample post",
 				AuthMethod: "",
@@ -67,7 +67,7 @@ func TestPlanExecute_WithoutTasks(t *testing.T) {
 		Goal:        "For test",
 		TargetPath:  "testdata/api.json",
 		AuthMethods: map[string]map[string]string{},
-		Tasks:       []task{},
+		Tasks:       []Task{},
 	}
 
 	_, err := plan.Execute(&store)
