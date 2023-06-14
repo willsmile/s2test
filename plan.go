@@ -1,26 +1,17 @@
 package main
 
-const (
-	RequestSent    = "SENT"
-	RequestNotSent = "NOT SENT"
-)
-
 // Plan is a plan that contains test information
 type Plan struct {
-	Goal        string                       `json:"goal"`
-	TargetPath  string                       `json:"targetPath"`
-	AuthMethods map[string]map[string]string `json:"authMethods"`
-	Tasks       []task                       `json:"tasks"`
+	Goal        string      `json:"goal"`
+	TargetPath  string      `json:"targetPath"`
+	AuthMethods authMethods `json:"authMethods"`
+	Tasks       []Task      `json:"tasks"`
 }
 
-// task is a task definition for test
-type task struct {
-	TargetAPI  string         `json:"targetAPI"`
-	AuthMethod string         `json:"authMethod"`
-	Data       CustomizedData `json:"data"`
-}
+// AuthMethods is a store of prepared information of methods for authentication
+type authMethods map[string]map[string]string
 
-// Execute excutes a plan
+// Execute a plan
 func (p Plan) Execute(store *Endpoints) (Report, error) {
 	var report Report
 
@@ -29,26 +20,8 @@ func (p Plan) Execute(store *Endpoints) (Report, error) {
 	}
 
 	for _, task := range p.Tasks {
-		resp := DefaultResponse()
-		result := RequestNotSent
-
-		target, err := (*store).Search(task.TargetAPI)
-		authMethod := p.AuthMethods[task.AuthMethod]
-		authInfo := NewAuthInfo(authMethod)
-		if err == nil {
-			resp, _ = HTTPRequest(target, authInfo, task.Data)
-			result = RequestSent
-		}
-
-		entity := reportEntity{
-			reqTarget:     task.TargetAPI,
-			reqAuthMethod: task.AuthMethod,
-			result:        result,
-			respBody:      resp.Body,
-			respStatus:    resp.Status,
-		}
-
-		report = append(report, entity)
+		entity := task.Perform(store, &p.AuthMethods)
+		report = append(report, *entity)
 	}
 
 	return report, nil
