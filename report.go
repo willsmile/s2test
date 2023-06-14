@@ -23,6 +23,16 @@ type reportEntity struct {
 	respStatus    string
 }
 
+func NewReportEntity(t *Task, resp *Response, result string) *reportEntity {
+	return &reportEntity{
+		reqTarget:     t.TargetAPI,
+		reqAuthMethod: t.AuthMethod,
+		result:        result,
+		respBody:      resp.Body,
+		respStatus:    resp.Status,
+	}
+}
+
 // Print prints out each reportEntity in Report
 func (report Report) Print() error {
 	if len(report) == 0 {
@@ -48,7 +58,7 @@ func (entity reportEntity) printTarget() {
 func (entity reportEntity) printResult() {
 	var c *color.Color
 
-	if entity.result == RequestSent {
+	if entity.result == ResultRequestSent {
 		c = color.New(color.FgGreen)
 	} else {
 		c = color.New(color.FgRed)
@@ -60,7 +70,7 @@ func (entity reportEntity) printResult() {
 // printResponse prints respBody and respStatus in reportEntity
 // when result is not RequestNotSent
 func (entity reportEntity) printResponse() {
-	if entity.result == RequestSent {
+	if entity.result == ResultRequestSent {
 		c := color.New(color.FgBlue)
 		c.Printf("%s Response state: ", smallArrow)
 		fmt.Println(entity.respStatus)
