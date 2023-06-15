@@ -1,20 +1,22 @@
-package main
+package executor
 
 import (
 	"errors"
 	"testing"
+
+	"github.com/willsmile/s2test/internal/connector"
 )
 
 func TestPlanExecute_WithTasks(t *testing.T) {
-	store := Endpoints{
-		"GET a sample post": Endpoint{
+	store := connector.Endpoints{
+		"GET a sample post": connector.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": Endpoint{
+		"GET a sample todo": connector.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
@@ -46,15 +48,15 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 }
 
 func TestPlanExecute_WithoutTasks(t *testing.T) {
-	store := Endpoints{
-		"GET a sample post": Endpoint{
+	store := connector.Endpoints{
+		"GET a sample post": connector.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": Endpoint{
+		"GET a sample todo": connector.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
