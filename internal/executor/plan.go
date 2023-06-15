@@ -24,19 +24,19 @@ type Plan struct {
 type authMethods map[string]map[string]string
 
 // Execute a plan
-func (p Plan) Execute(store *connector.Endpoints) (reporter.Report, error) {
-	var report reporter.Report
+func (p Plan) Execute(store *connector.Endpoints) (reporter.Reports, error) {
+	var reports reporter.Reports
 
 	if len(p.Tasks) == 0 {
-		return report, ErrNoTasksToExecute
+		return reports, ErrNoTasksToExecute
 	}
 
 	for _, task := range p.Tasks {
 		entity := task.Perform(store, &p.AuthMethods)
-		report = append(report, *entity)
+		reports = append(reports, *entity)
 	}
 
-	return report, nil
+	return reports, nil
 }
 
 func (p Plan) APIPath(s string) string {

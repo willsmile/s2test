@@ -60,12 +60,12 @@ func New() *cli.App {
 				return err
 			}
 
-			report, err := plan.Execute(&store)
+			reports, err := plan.Execute(&store)
 			if err != nil {
 				return err
 			}
 
-			err = report.Print()
+			err = reports.Print()
 			if err != nil {
 				return err
 			}

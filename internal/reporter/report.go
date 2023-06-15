@@ -19,12 +19,12 @@ const (
 )
 
 var (
-	// ErrEmptyReport is returned when report is empty
-	ErrEmptyReport = errors.New("nothing to print due to empty report")
+	// ErrEmptyReport is returned when reports is empty
+	ErrEmptyReport = errors.New("nothing to print due to empty reports")
 )
 
-// Report is a slice of report entities
-type Report []ReportEntity
+// Reports is a slice of Report
+type Reports []ReportEntity
 
 // ReportEntity is a report entity of each executed task
 type ReportEntity struct {
@@ -35,13 +35,13 @@ type ReportEntity struct {
 	RespStatus    string
 }
 
-// Print prints out each reportEntity in Report
-func (report Report) Print() error {
-	if len(report) == 0 {
+// Print prints out each reportEntity in Reports
+func (reports Reports) Print() error {
+	if len(reports) == 0 {
 		return ErrEmptyReport
 	}
 
-	for _, v := range report {
+	for _, v := range reports {
 		v.printTarget()
 		v.printResult()
 		v.printResponse()

@@ -6,7 +6,7 @@ import (
 )
 
 func TestReportPrint_ValidReport(t *testing.T) {
-	report := Report{
+	reports := Reports{
 		ReportEntity{
 			ReqTarget:     "GET a sample post",
 			ReqAuthMethod: "",
@@ -23,17 +23,17 @@ func TestReportPrint_ValidReport(t *testing.T) {
 		},
 	}
 
-	err := report.Print()
+	err := reports.Print()
 	if err != nil {
-		t.Fatalf("report.Print(), expected none error, got %s", err)
+		t.Fatalf("reports.Print(), expected none error, got %s", err)
 	}
 }
 
 func TestReportPrint_EmptyReport(t *testing.T) {
-	report := Report{}
+	reports := Reports{}
 
-	err := report.Print()
+	err := reports.Print()
 	if !errors.Is(err, ErrEmptyReport) {
-		t.Fatalf("report.Print(), expected %s, got %s", ErrEmptyReport, err)
+		t.Fatalf("reports.Print(), expected %s, got %s", ErrEmptyReport, err)
 	}
 }
