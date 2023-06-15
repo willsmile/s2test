@@ -13,22 +13,22 @@ type Task struct {
 }
 
 // Perform a task
-func (t Task) Perform(store *connector.Endpoints, methods *authMethods) *reporter.ReportEntity {
+func (t Task) Perform(store *connector.Endpoints, methods *authMethods) *reporter.Report {
 	endpoint := t.endpoint(store)
 	auth := t.authInfo(methods)
 	data := t.Data
 	req, err := connector.NewRequest(endpoint, auth, data).HTTPRequest()
 	if err != nil {
-		return t.reportEntity(connector.DefaultResponse(), reporter.ResultRequestNotSent)
+		return t.createReport(connector.DefaultResponse(), reporter.ResultRequestNotSent)
 	}
 
 	client := connector.NewHTTPClient()
 	resp, err := connector.SendHTTPRequest(req, client)
 	if err != nil {
-		return t.reportEntity(connector.DefaultResponse(), reporter.ResultRequestError)
+		return t.createReport(connector.DefaultResponse(), reporter.ResultRequestError)
 	}
 
-	return t.reportEntity(resp, reporter.ResultRequestSent)
+	return t.createReport(resp, reporter.ResultRequestSent)
 }
 
 func (t Task) endpoint(store *connector.Endpoints) connector.Endpoint {
@@ -40,8 +40,8 @@ func (t Task) authInfo(methods *authMethods) connector.AuthInfo {
 	return connector.NewAuthInfo(info)
 }
 
-func (t Task) reportEntity(resp *connector.Response, result string) *reporter.ReportEntity {
-	return &reporter.ReportEntity{
+func (t Task) createReport(resp *connector.Response, result string) *reporter.Report {
+	return &reporter.Report{
 		ReqTarget:     t.TargetAPI,
 		ReqAuthMethod: t.AuthMethod,
 		Result:        result,

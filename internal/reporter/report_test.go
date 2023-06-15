@@ -7,14 +7,14 @@ import (
 
 func TestReportPrint_ValidReport(t *testing.T) {
 	reports := Reports{
-		ReportEntity{
+		Report{
 			ReqTarget:     "GET a sample post",
 			ReqAuthMethod: "",
 			Result:        "SENT",
 			RespBody:      "200 OK",
 			RespStatus:    "{}",
 		},
-		ReportEntity{
+		Report{
 			ReqTarget:     "GET a sample todo",
 			ReqAuthMethod: "",
 			Result:        "SENT",

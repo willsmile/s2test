@@ -24,10 +24,10 @@ var (
 )
 
 // Reports is a slice of Report
-type Reports []ReportEntity
+type Reports []Report
 
-// ReportEntity is a report entity of each executed task
-type ReportEntity struct {
+// Report records the results on the execution of each task
+type Report struct {
 	ReqTarget     string
 	ReqAuthMethod string
 	Result        string
@@ -35,7 +35,7 @@ type ReportEntity struct {
 	RespStatus    string
 }
 
-// Print prints out each reportEntity in Reports
+// Print prints out each Report in Reports
 func (reports Reports) Print() error {
 	if len(reports) == 0 {
 		return ErrEmptyReport
@@ -50,33 +50,33 @@ func (reports Reports) Print() error {
 	return nil
 }
 
-// printTarget prints reqTarget in reportEntity
-func (entity ReportEntity) printTarget() {
+// printTarget prints ReqTarget of Report
+func (report Report) printTarget() {
 	c := color.New(color.FgYellow, color.Bold)
-	c.Printf("%s Target API: %s\n", arrow, entity.ReqTarget)
+	c.Printf("%s Target API: %s\n", arrow, report.ReqTarget)
 }
 
-// printTarget prints result in reportEntity
-func (entity ReportEntity) printResult() {
+// printTarget prints Result of Report
+func (report Report) printResult() {
 	var c *color.Color
 
-	if entity.Result == ResultRequestSent {
+	if report.Result == ResultRequestSent {
 		c = color.New(color.FgGreen)
 	} else {
 		c = color.New(color.FgRed)
 	}
 
-	c.Printf("%s Result: %s\n", smallArrow, entity.Result)
+	c.Printf("%s Result: %s\n", smallArrow, report.Result)
 }
 
-// printResponse prints respBody and respStatus in reportEntity
+// printResponse prints RespBody and RespStatus of Report
 // when result is not RequestNotSent
-func (entity ReportEntity) printResponse() {
-	if entity.Result == ResultRequestSent {
+func (report Report) printResponse() {
+	if report.Result == ResultRequestSent {
 		c := color.New(color.FgBlue)
 		c.Printf("%s Response state: ", smallArrow)
-		fmt.Println(entity.RespStatus)
+		fmt.Println(report.RespStatus)
 		c.Printf("%s Response body: ", smallArrow)
-		fmt.Println(entity.RespBody)
+		fmt.Println(report.RespBody)
 	}
 }
