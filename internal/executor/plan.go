@@ -33,3 +33,11 @@ func (p Plan) Execute(store *Endpoints) (Report, error) {
 
 	return report, nil
 }
+
+func (p Plan) APIPath(s string) string {
+	if s == "" {
+		return p.TargetPath
+	} else {
+		return s
+	}
+}

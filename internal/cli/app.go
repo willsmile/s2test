@@ -27,10 +27,16 @@ func New() *cli.App {
 		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:    "path",
+				Name:    "plan",
 				Aliases: []string{"p"},
 				Value:   "",
-				Usage:   "Path of test plan to execute",
+				Usage:   "Path of plan to execute",
+			},
+			&cli.StringFlag{
+				Name:    "api",
+				Aliases: []string{"a"},
+				Value:   "",
+				Usage:   "Path of API endpoints",
 			},
 		},
 		Action: func(c *cli.Context) error {
@@ -40,13 +46,14 @@ func New() *cli.App {
 				err   error
 			)
 
-			path := c.String("path")
-			err = config.LoadJSON(path, &plan)
+			planPath := c.String("plan")
+			err = config.LoadJSON(planPath, &plan)
 			if err != nil {
 				return err
 			}
 
-			err = config.LoadJSON(plan.TargetPath, &store)
+			apiPath := plan.APIPath(c.String("api"))
+			err = config.LoadJSON(apiPath, &store)
 			if err != nil {
 				return err
 			}

@@ -92,9 +92,13 @@ Also, to write down the information of test target API by using the following fo
   }
 }
 ```
-
 ### Test Plan Execution
+- Run with both `plan path` and `api path`
+```
+./s2test -p plan.json -a api.json
+```
 
+- Run with only `plan path` (`api path` will be set with the value of `targetPath` in test plan file)
 ```
 ./s2test -p plan.json
 ```

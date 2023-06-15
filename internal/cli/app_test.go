@@ -8,7 +8,7 @@ import (
 )
 
 func TestAppRun_ArgsOfValidPath(t *testing.T) {
-	args := []string{"./s2test", "-p", "../../testdata/plan.json"}
+	args := []string{"./s2test", "-p", "../../testdata/plan.json", "-a", "../../testdata/api.json"}
 	err := New().Run(args)
 	if err != nil {
 		t.Fatalf("App run with args of valid path, expected none error, got %s", err)
@@ -16,7 +16,7 @@ func TestAppRun_ArgsOfValidPath(t *testing.T) {
 }
 
 func TestAppRun_ArgsWithInvalidPath(t *testing.T) {
-	args := []string{"./s2test", "-p", "../../testdata/invalid_plan.json"}
+	args := []string{"./s2test", "-p", "../../testdata/invalid_plan.json", "-a", "../../testdata/api.json"}
 	err := New().Run(args)
 	if !errors.Is(err, config.ErrReadFile) {
 		t.Fatalf("App run with args of invalid path, expected %s, got %s", config.ErrReadFile, err)
@@ -24,7 +24,7 @@ func TestAppRun_ArgsWithInvalidPath(t *testing.T) {
 }
 
 func TestAppRun_ArgsWithEmptyPath(t *testing.T) {
-	args := []string{"./s2test", "-p", ""}
+	args := []string{"./s2test", "-p", "", "-a", "../../testdata/api.json"}
 	err := New().Run(args)
 	if !errors.Is(err, config.ErrEmptyPath) {
 		t.Fatalf("App run with args of empty path, expected %s, got %s", config.ErrEmptyPath, err)
