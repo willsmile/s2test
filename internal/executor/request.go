@@ -1,9 +1,21 @@
-package main
+package executor
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"net/http"
+)
+
+var (
+	// ErrHTTPRequest is returned when failed to make a request by http client
+	ErrHTTPRequest = errors.New("failed to create a http request")
+	// ErrHTTPResponse is returned when failed to receive a response by http client
+	ErrHTTPResponse = errors.New("failed to receive a http response")
+	// ErrHTTPRespBody is returned when failed to read a http response body
+	ErrHTTPRespBody = errors.New("failed to read a http response body")
+	// ErrUndefinedAPI is returned when the target API is undefined
+	ErrUndefinedAPI = errors.New("target API is undefined")
 )
 
 type Request struct {
@@ -40,7 +52,7 @@ func (req *Request) HTTPRequest() (*http.Request, error) {
 		hreq, err = http.NewRequest(req.Endpoint.Method, req.Endpoint.URL, nil)
 	}
 	if err != nil {
-		return nil, err
+		return nil, ErrHTTPRequest
 	}
 
 	// Add headers to request if exists

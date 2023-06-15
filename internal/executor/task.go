@@ -1,4 +1,4 @@
-package main
+package executor
 
 const (
 	ResultRequestSent    = "SENT"

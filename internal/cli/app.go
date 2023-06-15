@@ -1,7 +1,12 @@
-package main
+package cli
 
 import (
+	"log"
+
 	"github.com/urfave/cli/v2"
+
+	"github.com/willsmile/s2test/internal/config"
+	"github.com/willsmile/s2test/internal/executor"
 )
 
 const (
@@ -30,18 +35,18 @@ func New() *cli.App {
 		},
 		Action: func(c *cli.Context) error {
 			var (
-				plan  Plan
-				store Endpoints
+				plan  executor.Plan
+				store executor.Endpoints
 				err   error
 			)
 
 			path := c.String("path")
-			err = LoadJSON(path, &plan)
+			err = config.LoadJSON(path, &plan)
 			if err != nil {
 				return err
 			}
 
-			err = LoadJSON(plan.TargetPath, &store)
+			err = config.LoadJSON(plan.TargetPath, &store)
 			if err != nil {
 				return err
 			}
@@ -61,4 +66,13 @@ func New() *cli.App {
 	}
 
 	return app
+}
+
+func Log(err error) {
+	switch err {
+	case executor.ErrNoTasksToExecute, executor.ErrEmptyReport:
+		log.Print("[INFO] ", err)
+	default:
+		log.Fatal("[ERROR] ", err)
+	}
 }

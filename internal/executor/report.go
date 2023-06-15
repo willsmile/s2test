@@ -1,6 +1,7 @@
-package main
+package executor
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/fatih/color"
@@ -9,6 +10,11 @@ import (
 const (
 	arrow      = "==>"
 	smallArrow = " ->"
+)
+
+var (
+	// ErrEmptyReport is returned when report is empty
+	ErrEmptyReport = errors.New("nothing to print due to empty report")
 )
 
 // Report is a slice of report entities

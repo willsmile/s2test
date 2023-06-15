@@ -1,4 +1,11 @@
-package main
+package executor
+
+import "errors"
+
+var (
+	// ErrNoTasksToExecute is returned when there are no tasks to execute
+	ErrNoTasksToExecute = errors.New("there are no tasks to execute")
+)
 
 // Plan is a plan that contains test information
 type Plan struct {
