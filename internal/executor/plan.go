@@ -1,6 +1,10 @@
 package executor
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/willsmile/s2test/internal/reporter"
+)
 
 var (
 	// ErrNoTasksToExecute is returned when there are no tasks to execute
@@ -19,8 +23,8 @@ type Plan struct {
 type authMethods map[string]map[string]string
 
 // Execute a plan
-func (p Plan) Execute(store *Endpoints) (Report, error) {
-	var report Report
+func (p Plan) Execute(store *Endpoints) (reporter.Report, error) {
+	var report reporter.Report
 
 	if len(p.Tasks) == 0 {
 		return report, ErrNoTasksToExecute

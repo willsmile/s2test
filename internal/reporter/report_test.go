@@ -1,4 +1,4 @@
-package executor
+package reporter
 
 import (
 	"errors"
@@ -7,19 +7,19 @@ import (
 
 func TestReportPrint_ValidReport(t *testing.T) {
 	report := Report{
-		reportEntity{
-			reqTarget:     "GET a sample post",
-			reqAuthMethod: "",
-			result:        "SENT",
-			respBody:      "200 OK",
-			respStatus:    "{}",
+		ReportEntity{
+			ReqTarget:     "GET a sample post",
+			ReqAuthMethod: "",
+			Result:        "SENT",
+			RespBody:      "200 OK",
+			RespStatus:    "{}",
 		},
-		reportEntity{
-			reqTarget:     "GET a sample todo",
-			reqAuthMethod: "",
-			result:        "SENT",
-			respBody:      "200 OK",
-			respStatus:    "{}",
+		ReportEntity{
+			ReqTarget:     "GET a sample todo",
+			ReqAuthMethod: "",
+			Result:        "SENT",
+			RespBody:      "200 OK",
+			RespStatus:    "{}",
 		},
 	}
 

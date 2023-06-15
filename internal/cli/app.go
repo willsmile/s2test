@@ -7,6 +7,7 @@ import (
 
 	"github.com/willsmile/s2test/internal/config"
 	"github.com/willsmile/s2test/internal/executor"
+	"github.com/willsmile/s2test/internal/reporter"
 )
 
 const (
@@ -77,7 +78,7 @@ func New() *cli.App {
 
 func Log(err error) {
 	switch err {
-	case executor.ErrNoTasksToExecute, executor.ErrEmptyReport:
+	case executor.ErrNoTasksToExecute, reporter.ErrEmptyReport:
 		log.Print("[INFO] ", err)
 	default:
 		log.Fatal("[ERROR] ", err)

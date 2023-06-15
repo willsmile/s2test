@@ -1,10 +1,16 @@
-package executor
+package reporter
 
 import (
 	"errors"
 	"fmt"
 
 	"github.com/fatih/color"
+)
+
+const (
+	ResultRequestSent    = "SENT"
+	ResultRequestNotSent = "NOT SENT"
+	ResultRequestError   = "ERROR"
 )
 
 const (
@@ -18,25 +24,15 @@ var (
 )
 
 // Report is a slice of report entities
-type Report []reportEntity
+type Report []ReportEntity
 
-// reportEntity is a report entity of each executed task
-type reportEntity struct {
-	reqTarget     string
-	reqAuthMethod string
-	result        string
-	respBody      string
-	respStatus    string
-}
-
-func NewReportEntity(t *Task, resp *Response, result string) *reportEntity {
-	return &reportEntity{
-		reqTarget:     t.TargetAPI,
-		reqAuthMethod: t.AuthMethod,
-		result:        result,
-		respBody:      resp.Body,
-		respStatus:    resp.Status,
-	}
+// ReportEntity is a report entity of each executed task
+type ReportEntity struct {
+	ReqTarget     string
+	ReqAuthMethod string
+	Result        string
+	RespBody      string
+	RespStatus    string
 }
 
 // Print prints out each reportEntity in Report
@@ -55,32 +51,32 @@ func (report Report) Print() error {
 }
 
 // printTarget prints reqTarget in reportEntity
-func (entity reportEntity) printTarget() {
+func (entity ReportEntity) printTarget() {
 	c := color.New(color.FgYellow, color.Bold)
-	c.Printf("%s Target API: %s\n", arrow, entity.reqTarget)
+	c.Printf("%s Target API: %s\n", arrow, entity.ReqTarget)
 }
 
 // printTarget prints result in reportEntity
-func (entity reportEntity) printResult() {
+func (entity ReportEntity) printResult() {
 	var c *color.Color
 
-	if entity.result == ResultRequestSent {
+	if entity.Result == ResultRequestSent {
 		c = color.New(color.FgGreen)
 	} else {
 		c = color.New(color.FgRed)
 	}
 
-	c.Printf("%s Result: %s\n", smallArrow, entity.result)
+	c.Printf("%s Result: %s\n", smallArrow, entity.Result)
 }
 
 // printResponse prints respBody and respStatus in reportEntity
 // when result is not RequestNotSent
-func (entity reportEntity) printResponse() {
-	if entity.result == ResultRequestSent {
+func (entity ReportEntity) printResponse() {
+	if entity.Result == ResultRequestSent {
 		c := color.New(color.FgBlue)
 		c.Printf("%s Response state: ", smallArrow)
-		fmt.Println(entity.respStatus)
+		fmt.Println(entity.RespStatus)
 		c.Printf("%s Response body: ", smallArrow)
-		fmt.Println(entity.respBody)
+		fmt.Println(entity.RespBody)
 	}
 }
