@@ -6,6 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 
 	"github.com/willsmile/s2test/internal/config"
+	"github.com/willsmile/s2test/internal/connector"
 	"github.com/willsmile/s2test/internal/executor"
 	"github.com/willsmile/s2test/internal/reporter"
 )
@@ -43,7 +44,7 @@ func New() *cli.App {
 		Action: func(c *cli.Context) error {
 			var (
 				plan  executor.Plan
-				store executor.Endpoints
+				store connector.Endpoints
 				err   error
 			)
 

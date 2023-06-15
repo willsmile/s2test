@@ -1,4 +1,4 @@
-package executor
+package connector
 
 import "net/http"
 

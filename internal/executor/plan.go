@@ -3,6 +3,7 @@ package executor
 import (
 	"errors"
 
+	"github.com/willsmile/s2test/internal/connector"
 	"github.com/willsmile/s2test/internal/reporter"
 )
 
@@ -23,7 +24,7 @@ type Plan struct {
 type authMethods map[string]map[string]string
 
 // Execute a plan
-func (p Plan) Execute(store *Endpoints) (reporter.Report, error) {
+func (p Plan) Execute(store *connector.Endpoints) (reporter.Report, error) {
 	var report reporter.Report
 
 	if len(p.Tasks) == 0 {
