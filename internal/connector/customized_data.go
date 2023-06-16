@@ -13,13 +13,18 @@ func (ctd CustomizedData) Apply(raw json.RawMessage) string {
 	if len(ctd) == 0 {
 		return result
 	}
+	replacer := ctd.newReplacer()
 
+	return replacer.Replace(result)
+}
+
+func (ctd CustomizedData) newReplacer() *strings.Replacer {
+	var oldnew []string
 	for key, value := range ctd {
-		wrappedKey := wrap(key)
-		result = strings.Replace(result, wrappedKey, value, 1)
+		oldnew = append(oldnew, wrap(key), value)
 	}
 
-	return result
+	return strings.NewReplacer(oldnew...)
 }
 
 func wrap(k string) string {

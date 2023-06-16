@@ -58,7 +58,8 @@ To prepare a test plan by using the following format (for example, let's name th
       "targetAPI": "POST a sample post",
       "authMethod": "tokenA",
       "data": {
-        "sample_use_id": "1"
+        "sample_use_id": "1",
+        "sample_post_title": "sample post title"
       }
     }
   ]
@@ -85,7 +86,7 @@ Also, to write down the information of test target API by using the following fo
       "Content-type": "application/json; charset=utf-8"
     },
     "body": {
-      "title": "sample post title",
+      "title": "#{sample_post_title}",
       "body": "sample post body",
       "userId": "#{sample_use_id}"
     }
