@@ -15,7 +15,7 @@
       "Content-type": "application/json; charset=utf-8"
     },
     "body": {
-      "title": "sample post title",
+      "title": "#{sample_post_title}",
       "body": "sample post body",
       "userId": "#{sample_use_id}"
     }
