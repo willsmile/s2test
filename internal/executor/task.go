@@ -19,16 +19,16 @@ func (t Task) Perform(store *connector.Endpoints, methods *authMethods) *reporte
 	data := t.Data
 	req, err := connector.NewRequest(endpoint, auth, data).HTTPRequest()
 	if err != nil {
-		return t.createReport(connector.DefaultResponse(), reporter.ResultRequestNotSent)
+		return t.generateReport(connector.DefaultResponse(), reporter.ResultRequestNotSent)
 	}
 
 	client := connector.NewHTTPClient()
 	resp, err := connector.SendHTTPRequest(req, client)
 	if err != nil {
-		return t.createReport(connector.DefaultResponse(), reporter.ResultRequestError)
+		return t.generateReport(connector.DefaultResponse(), reporter.ResultRequestError)
 	}
 
-	return t.createReport(resp, reporter.ResultRequestSent)
+	return t.generateReport(resp, reporter.ResultRequestSent)
 }
 
 func (t Task) endpoint(store *connector.Endpoints) connector.Endpoint {
@@ -40,7 +40,7 @@ func (t Task) authInfo(methods *authMethods) connector.AuthInfo {
 	return connector.NewAuthInfo(info)
 }
 
-func (t Task) createReport(resp *connector.Response, result string) *reporter.Report {
+func (t Task) generateReport(resp *connector.Response, result string) *reporter.Report {
 	return &reporter.Report{
 		ReqTarget:     t.TargetAPI,
 		ReqAuthMethod: t.AuthMethod,
