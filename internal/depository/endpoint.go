@@ -1,4 +1,4 @@
-package connector
+package depository
 
 import (
 	"encoding/json"
@@ -15,7 +15,7 @@ type Endpoint struct {
 	Body    json.RawMessage   `json:"body"`
 }
 
-func (e Endpoint) available() bool {
+func (e Endpoint) Available() bool {
 	if e.URL != "" && e.Method != "" {
 		return true
 	} else {

@@ -1,4 +1,4 @@
-package connector
+package depository
 
 import (
 	"encoding/json"

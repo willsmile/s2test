@@ -2,18 +2,19 @@ package executor
 
 import (
 	"github.com/willsmile/s2test/internal/connector"
+	"github.com/willsmile/s2test/internal/depository"
 	"github.com/willsmile/s2test/internal/reporter"
 )
 
 // Task is a task definition for test
 type Task struct {
-	TargetAPI  string                   `json:"targetAPI"`
-	AuthMethod string                   `json:"authMethod"`
-	Data       connector.CustomizedData `json:"data"`
+	TargetAPI  string                    `json:"targetAPI"`
+	AuthMethod string                    `json:"authMethod"`
+	Data       depository.CustomizedData `json:"data"`
 }
 
 // Perform a task
-func (t Task) Perform(store *connector.Endpoints, methods *authMethods) *reporter.Report {
+func (t Task) Perform(store *depository.Endpoints, methods *depository.AuthMethods) *reporter.Report {
 	endpoint := t.endpoint(store)
 	auth := t.authInfo(methods)
 	data := t.Data
@@ -31,13 +32,13 @@ func (t Task) Perform(store *connector.Endpoints, methods *authMethods) *reporte
 	return t.generateReport(resp, reporter.ResultRequestSent)
 }
 
-func (t Task) endpoint(store *connector.Endpoints) connector.Endpoint {
+func (t Task) endpoint(store *depository.Endpoints) depository.Endpoint {
 	return (*store)[t.TargetAPI]
 }
 
-func (t Task) authInfo(methods *authMethods) connector.AuthInfo {
+func (t Task) authInfo(methods *depository.AuthMethods) depository.AuthInfo {
 	info := (*methods)[t.AuthMethod]
-	return connector.NewAuthInfo(info)
+	return depository.NewAuthInfo(info)
 }
 
 func (t Task) generateReport(resp *connector.Response, result string) *reporter.Report {

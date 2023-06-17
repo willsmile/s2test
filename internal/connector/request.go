@@ -5,6 +5,8 @@ import (
 	"errors"
 	"io"
 	"net/http"
+
+	"github.com/willsmile/s2test/internal/depository"
 )
 
 var (
@@ -19,12 +21,12 @@ var (
 )
 
 type Request struct {
-	Endpoint Endpoint
-	Auth     AuthInfo
-	Data     CustomizedData
+	Endpoint depository.Endpoint
+	Auth     depository.AuthInfo
+	Data     depository.CustomizedData
 }
 
-func NewRequest(e Endpoint, a AuthInfo, d CustomizedData) *Request {
+func NewRequest(e depository.Endpoint, a depository.AuthInfo, d depository.CustomizedData) *Request {
 	return &Request{e, a, d}
 }
 
@@ -39,7 +41,7 @@ func (req *Request) HTTPRequest() (*http.Request, error) {
 	)
 
 	// Check endpoint whether is available
-	if !req.Endpoint.available() {
+	if !req.Endpoint.Available() {
 		return nil, ErrUndefinedAPI
 	}
 
