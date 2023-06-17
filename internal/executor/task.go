@@ -33,11 +33,11 @@ func (t Task) Perform(store *depository.Endpoints, methods *depository.AuthMetho
 }
 
 func (t Task) generateReport(resp *connector.Response, result string) *reporter.Report {
-	return &reporter.Report{
-		ReqTarget:     t.TargetAPI,
-		ReqAuthMethod: t.AuthMethod,
-		Result:        result,
-		RespBody:      resp.Body,
-		RespStatus:    resp.Status,
-	}
+	return reporter.NewReport(
+		t.TargetAPI,
+		t.AuthMethod,
+		result,
+		resp.Body,
+		resp.Status,
+	)
 }

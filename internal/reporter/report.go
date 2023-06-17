@@ -35,6 +35,16 @@ type Report struct {
 	RespStatus    string
 }
 
+func NewReport(target string, method string, result string, body string, status string) *Report {
+	return &Report{
+		ReqTarget:     target,
+		ReqAuthMethod: method,
+		Result:        result,
+		RespBody:      body,
+		RespStatus:    status,
+	}
+}
+
 // Print prints out each Report in Reports
 func (reports Reports) Print() error {
 	if len(reports) == 0 {
