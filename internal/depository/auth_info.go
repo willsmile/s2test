@@ -24,8 +24,10 @@ type token struct {
 	tokenValue  string
 }
 
-func NewAuthInfo(info map[string]string) AuthInfo {
+func (m AuthMethods) AuthInfo(method string) AuthInfo {
 	var authInfo AuthInfo
+	info := m[method]
+
 	if len(info) != 0 {
 		if info["type"] == AuthTypeCookie {
 			authInfo = cookie{cookieName: info["name"], cookieValue: info["value"]}
