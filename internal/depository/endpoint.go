@@ -15,6 +15,10 @@ type Endpoint struct {
 	Body    json.RawMessage   `json:"body"`
 }
 
+func (store Endpoints) Endpoint(target string) Endpoint {
+	return store[target]
+}
+
 func (e Endpoint) Available() bool {
 	if e.URL != "" && e.Method != "" {
 		return true

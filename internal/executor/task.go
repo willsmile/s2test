@@ -15,7 +15,7 @@ type Task struct {
 
 // Perform a task
 func (t Task) Perform(store *depository.Endpoints, methods *depository.AuthMethods) *reporter.Report {
-	endpoint := t.endpoint(store)
+	endpoint := store.Endpoint(t.TargetAPI)
 	auth := methods.AuthInfo(t.AuthMethod)
 	data := t.Data
 	req, err := connector.NewRequest(endpoint, auth, data).HTTPRequest()
@@ -30,10 +30,6 @@ func (t Task) Perform(store *depository.Endpoints, methods *depository.AuthMetho
 	}
 
 	return t.generateReport(resp, reporter.ResultRequestSent)
-}
-
-func (t Task) endpoint(store *depository.Endpoints) depository.Endpoint {
-	return (*store)[t.TargetAPI]
 }
 
 func (t Task) generateReport(resp *connector.Response, result string) *reporter.Report {
