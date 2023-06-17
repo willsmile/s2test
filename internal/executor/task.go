@@ -34,9 +34,9 @@ func (t Task) Perform(store *depository.Endpoints, methods *depository.AuthMetho
 
 func (t Task) generateReport(resp *myhttp.Response, result string) *reporter.Report {
 	return reporter.NewReport(
+		result,
 		t.TargetAPI,
 		t.AuthMethod,
-		result,
 		resp.Body,
 		resp.Status,
 	)
