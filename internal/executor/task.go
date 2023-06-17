@@ -1,8 +1,8 @@
 package executor
 
 import (
-	"github.com/willsmile/s2test/internal/connector"
 	"github.com/willsmile/s2test/internal/depository"
+	myhttp "github.com/willsmile/s2test/internal/http"
 	"github.com/willsmile/s2test/internal/reporter"
 )
 
@@ -18,21 +18,21 @@ func (t Task) Perform(store *depository.Endpoints, methods *depository.AuthMetho
 	endpoint := store.Endpoint(t.TargetAPI)
 	auth := methods.AuthInfo(t.AuthMethod)
 	data := t.Data
-	req, err := connector.NewRequest(endpoint, auth, data).HTTPRequest()
+	req, err := myhttp.NewRequest(endpoint, auth, data).HTTPRequest()
 	if err != nil {
-		return t.generateReport(connector.DefaultResponse(), reporter.ResultRequestNotSent)
+		return t.generateReport(myhttp.DefaultResponse(), reporter.ResultRequestNotSent)
 	}
 
-	client := connector.NewHTTPClient()
-	resp, err := connector.SendHTTPRequest(req, client)
+	client := myhttp.NewHTTPClient()
+	resp, err := myhttp.SendHTTPRequest(req, client)
 	if err != nil {
-		return t.generateReport(connector.DefaultResponse(), reporter.ResultRequestError)
+		return t.generateReport(myhttp.DefaultResponse(), reporter.ResultRequestError)
 	}
 
 	return t.generateReport(resp, reporter.ResultRequestSent)
 }
 
-func (t Task) generateReport(resp *connector.Response, result string) *reporter.Report {
+func (t Task) generateReport(resp *myhttp.Response, result string) *reporter.Report {
 	return reporter.NewReport(
 		t.TargetAPI,
 		t.AuthMethod,

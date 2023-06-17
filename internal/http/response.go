@@ -1,4 +1,4 @@
-package connector
+package http
 
 // Response constains status and body of a HTTP Response
 type Response struct {
