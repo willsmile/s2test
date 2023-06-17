@@ -1,4 +1,4 @@
-package connector
+package depository
 
 import "net/http"
 
@@ -6,6 +6,9 @@ const (
 	AuthTypeCookie = "Cookie"
 	AuthTypeOAuth2 = "OAuth 2.0"
 )
+
+// AuthMethods is a store of prepared information of methods for authentication
+type AuthMethods map[string]map[string]string
 
 type AuthInfo interface {
 	Attach(req *http.Request)
@@ -21,8 +24,10 @@ type token struct {
 	tokenValue  string
 }
 
-func NewAuthInfo(info map[string]string) AuthInfo {
+func (m AuthMethods) AuthInfo(method string) AuthInfo {
 	var authInfo AuthInfo
+	info := m[method]
+
 	if len(info) != 0 {
 		if info["type"] == AuthTypeCookie {
 			authInfo = cookie{cookieName: info["name"], cookieValue: info["value"]}

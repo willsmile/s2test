@@ -3,7 +3,7 @@ package executor
 import (
 	"errors"
 
-	"github.com/willsmile/s2test/internal/connector"
+	"github.com/willsmile/s2test/internal/depository"
 	"github.com/willsmile/s2test/internal/reporter"
 )
 
@@ -14,17 +14,14 @@ var (
 
 // Plan is a plan that contains test information
 type Plan struct {
-	Goal        string      `json:"goal"`
-	TargetPath  string      `json:"targetPath"`
-	AuthMethods authMethods `json:"authMethods"`
-	Tasks       []Task      `json:"tasks"`
+	Goal        string                 `json:"goal"`
+	TargetPath  string                 `json:"targetPath"`
+	AuthMethods depository.AuthMethods `json:"authMethods"`
+	Tasks       []Task                 `json:"tasks"`
 }
 
-// AuthMethods is a store of prepared information of methods for authentication
-type authMethods map[string]map[string]string
-
 // Execute a plan
-func (p Plan) Execute(store *connector.Endpoints) (reporter.Reports, error) {
+func (p Plan) Execute(store *depository.Endpoints) (reporter.Reports, error) {
 	var reports reporter.Reports
 
 	if len(p.Tasks) == 0 {

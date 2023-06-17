@@ -4,19 +4,19 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/willsmile/s2test/internal/connector"
+	"github.com/willsmile/s2test/internal/depository"
 )
 
 func TestPlanExecute_WithTasks(t *testing.T) {
-	store := connector.Endpoints{
-		"GET a sample post": connector.Endpoint{
+	store := depository.Endpoints{
+		"GET a sample post": depository.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": connector.Endpoint{
+		"GET a sample todo": depository.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
@@ -48,15 +48,15 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 }
 
 func TestPlanExecute_WithoutTasks(t *testing.T) {
-	store := connector.Endpoints{
-		"GET a sample post": connector.Endpoint{
+	store := depository.Endpoints{
+		"GET a sample post": depository.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": connector.Endpoint{
+		"GET a sample todo": depository.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
