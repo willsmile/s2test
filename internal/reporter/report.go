@@ -28,20 +28,20 @@ type Reports []Report
 
 // Report records the results on the execution of each task
 type Report struct {
-	ReqTarget     string
-	ReqAuthMethod string
-	Result        string
-	RespBody      string
-	RespStatus    string
+	result        string
+	reqTarget     string
+	reqAuthMethod string
+	respBody      string
+	respStatus    string
 }
 
-func NewReport(target string, method string, result string, body string, status string) *Report {
+func NewReport(result string, target string, method string, body string, status string) *Report {
 	return &Report{
-		ReqTarget:     target,
-		ReqAuthMethod: method,
-		Result:        result,
-		RespBody:      body,
-		RespStatus:    status,
+		result:        result,
+		reqTarget:     target,
+		reqAuthMethod: method,
+		respBody:      body,
+		respStatus:    status,
 	}
 }
 
@@ -63,30 +63,30 @@ func (reports Reports) Print() error {
 // printTarget prints ReqTarget of Report
 func (report Report) printTarget() {
 	c := color.New(color.FgYellow, color.Bold)
-	c.Printf("%s Target API: %s\n", arrow, report.ReqTarget)
+	c.Printf("%s Target API: %s\n", arrow, report.reqTarget)
 }
 
 // printTarget prints Result of Report
 func (report Report) printResult() {
 	var c *color.Color
 
-	if report.Result == ResultRequestSent {
+	if report.result == ResultRequestSent {
 		c = color.New(color.FgGreen)
 	} else {
 		c = color.New(color.FgRed)
 	}
 
-	c.Printf("%s Result: %s\n", smallArrow, report.Result)
+	c.Printf("%s Result: %s\n", smallArrow, report.result)
 }
 
 // printResponse prints RespBody and RespStatus of Report
 // when result is not RequestNotSent
 func (report Report) printResponse() {
-	if report.Result == ResultRequestSent {
+	if report.result == ResultRequestSent {
 		c := color.New(color.FgBlue)
 		c.Printf("%s Response state: ", smallArrow)
-		fmt.Println(report.RespStatus)
+		fmt.Println(report.respStatus)
 		c.Printf("%s Response body: ", smallArrow)
-		fmt.Println(report.RespBody)
+		fmt.Println(report.respBody)
 	}
 }
