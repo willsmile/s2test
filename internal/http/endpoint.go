@@ -15,6 +15,6 @@ type Endpoint struct {
 	Body    json.RawMessage   `json:"body"`
 }
 
-func (store Endpoints) Endpoint(target string) Endpoint {
+func (store Endpoints) GetEndpoint(target string) Endpoint {
 	return store[target]
 }

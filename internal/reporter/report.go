@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
+	myhttp "github.com/willsmile/s2test/internal/http"
 )
 
 const (
@@ -28,20 +29,20 @@ type Reports []Report
 
 // Report records the results on the execution of each task
 type Report struct {
-	result        string
-	reqTarget     string
-	reqAuthMethod string
-	respBody      string
-	respStatus    string
+	result   string
+	target   string
+	auth     string
+	request  *myhttp.Request
+	response *myhttp.Response
 }
 
-func NewReport(result string, target string, method string, body string, status string) *Report {
+func NewReport(result string, target string, auth string, req *myhttp.Request, resp *myhttp.Response) *Report {
 	return &Report{
-		result:        result,
-		reqTarget:     target,
-		reqAuthMethod: method,
-		respBody:      body,
-		respStatus:    status,
+		result:   result,
+		target:   target,
+		auth:     auth,
+		request:  req,
+		response: resp,
 	}
 }
 
@@ -63,7 +64,7 @@ func (reports Reports) Print() error {
 // printTarget prints ReqTarget of Report
 func (report Report) printTarget() {
 	c := color.New(color.FgYellow, color.Bold)
-	c.Printf("%s Target API: %s\n", arrow, report.reqTarget)
+	c.Printf("%s Target API: %s\n", arrow, report.target)
 }
 
 // printTarget prints Result of Report
@@ -85,8 +86,8 @@ func (report Report) printResponse() {
 	if report.result == ResultRequestSent {
 		c := color.New(color.FgBlue)
 		c.Printf("%s Response state: ", smallArrow)
-		fmt.Println(report.respStatus)
+		fmt.Println(report.response.Status)
 		c.Printf("%s Response body: ", smallArrow)
-		fmt.Println(report.respBody)
+		fmt.Println(report.response.Body)
 	}
 }
