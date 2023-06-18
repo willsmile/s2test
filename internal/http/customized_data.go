@@ -1,4 +1,4 @@
-package depository
+package http
 
 import (
 	"encoding/json"

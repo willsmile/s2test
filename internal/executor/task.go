@@ -1,20 +1,19 @@
 package executor
 
 import (
-	"github.com/willsmile/s2test/internal/depository"
 	myhttp "github.com/willsmile/s2test/internal/http"
 	"github.com/willsmile/s2test/internal/reporter"
 )
 
 // Task is a task definition for test
 type Task struct {
-	TargetAPI  string                    `json:"targetAPI"`
-	AuthMethod string                    `json:"authMethod"`
-	Data       depository.CustomizedData `json:"data"`
+	TargetAPI  string                `json:"targetAPI"`
+	AuthMethod string                `json:"authMethod"`
+	Data       myhttp.CustomizedData `json:"data"`
 }
 
 // Perform a task
-func (t Task) Perform(store *depository.Endpoints, methods *depository.AuthMethods) *reporter.Report {
+func (t Task) Perform(store *myhttp.Endpoints, methods *myhttp.AuthMethods) *reporter.Report {
 	endpoint := store.Endpoint(t.TargetAPI)
 	auth := methods.AuthInfo(t.AuthMethod)
 	data := t.Data
