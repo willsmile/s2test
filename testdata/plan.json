@@ -21,7 +21,7 @@
     {
       "targetAPI": "POST a sample post",
       "authMethod": "",
-      "data": {
+      "variables": {
         "sample_use_id": "1",
         "sample_post_title": "sample post title"
       }

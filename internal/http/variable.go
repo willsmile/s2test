@@ -6,21 +6,21 @@ import (
 	"strings"
 )
 
-type CustomizedData map[string]string
+type Variables map[string]string
 
-func (ctd CustomizedData) Apply(raw json.RawMessage) string {
+func (vbs Variables) Apply(raw json.RawMessage) string {
 	result := string(raw)
-	if len(ctd) == 0 {
+	if len(vbs) == 0 {
 		return result
 	}
-	replacer := ctd.newReplacer()
+	replacer := vbs.newReplacer()
 
 	return replacer.Replace(result)
 }
 
-func (ctd CustomizedData) newReplacer() *strings.Replacer {
+func (vbs Variables) newReplacer() *strings.Replacer {
 	var oldnew []string
-	for key, value := range ctd {
+	for key, value := range vbs {
 		oldnew = append(oldnew, wrap(key), value)
 	}
 

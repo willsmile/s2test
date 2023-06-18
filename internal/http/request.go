@@ -27,7 +27,7 @@ type Request struct {
 	Body    string
 }
 
-func NewRequest(endpoint Endpoint, auth AuthInfo, data CustomizedData) *Request {
+func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
 	req := &Request{
 		URL:     endpoint.URL,
 		Method:  endpoint.Method,
@@ -40,7 +40,7 @@ func NewRequest(endpoint Endpoint, auth AuthInfo, data CustomizedData) *Request 
 	if auth != nil {
 		auth.Attach(req)
 	}
-	req.SetBody(endpoint.Body, data)
+	req.SetBody(endpoint.Body, vbs)
 
 	return req
 }
@@ -55,11 +55,11 @@ func (req *Request) AddHeaders(headers map[string]string) {
 }
 
 // Set body from raw and customized data of body
-func (req *Request) SetBody(raw json.RawMessage, data CustomizedData) {
+func (req *Request) SetBody(raw json.RawMessage, vbs Variables) {
 	var body string
 	rawBody := string(raw)
-	if len(data) != 0 {
-		replacer := data.newReplacer()
+	if len(vbs) != 0 {
+		replacer := vbs.newReplacer()
 		body = replacer.Replace(rawBody)
 	} else {
 		body = rawBody

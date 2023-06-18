@@ -7,17 +7,17 @@ import (
 
 // Task is a task definition for test
 type Task struct {
-	TargetAPI  string                `json:"targetAPI"`
-	AuthMethod string                `json:"authMethod"`
-	Data       myhttp.CustomizedData `json:"data"`
+	TargetAPI  string           `json:"targetAPI"`
+	AuthMethod string           `json:"authMethod"`
+	Variables  myhttp.Variables `json:"variables"`
 }
 
 // Perform a task
 func (t Task) Perform(store *myhttp.Endpoints, methods *myhttp.AuthMethods) *reporter.Report {
 	endpoint := store.Endpoint(t.TargetAPI)
 	auth := methods.AuthInfo(t.AuthMethod)
-	data := t.Data
-	req, err := myhttp.NewRequest(endpoint, auth, data).HTTPRequest()
+	variables := t.Variables
+	req, err := myhttp.NewRequest(endpoint, auth, variables).HTTPRequest()
 	if err != nil {
 		return t.generateReport(myhttp.DefaultResponse(), reporter.ResultRequestNotSent)
 	}
