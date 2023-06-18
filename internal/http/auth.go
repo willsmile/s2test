@@ -1,6 +1,8 @@
-package depository
+package http
 
-import "net/http"
+import (
+	"net/http"
+)
 
 const (
 	AuthTypeCookie = "Cookie"
@@ -11,7 +13,7 @@ const (
 type AuthMethods map[string]map[string]string
 
 type AuthInfo interface {
-	Attach(req *http.Request)
+	Attach(req *Request)
 }
 
 type cookie struct {
@@ -40,12 +42,13 @@ func (m AuthMethods) AuthInfo(method string) AuthInfo {
 	}
 }
 
-func (c cookie) Attach(req *http.Request) {
+func (c cookie) Attach(req *Request) {
 	cookie := &http.Cookie{Name: c.cookieName, Value: c.cookieValue}
-	req.AddCookie(cookie)
+	cookies := []*http.Cookie{cookie}
+	req.Cookies = cookies
 }
 
-func (t token) Attach(req *http.Request) {
+func (t token) Attach(req *Request) {
 	value := t.tokenPrefix + " " + t.tokenValue
-	req.Header.Add("Authorization", value)
+	req.Headers.Add("Authorization", value)
 }

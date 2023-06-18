@@ -2,11 +2,10 @@ package http
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
 	"net/http"
-
-	"github.com/willsmile/s2test/internal/depository"
 )
 
 var (
@@ -21,13 +20,59 @@ var (
 )
 
 type Request struct {
-	Endpoint depository.Endpoint
-	Auth     depository.AuthInfo
-	Data     depository.CustomizedData
+	URL     string
+	Method  string
+	Headers http.Header
+	Cookies []*http.Cookie
+	Body    string
 }
 
-func NewRequest(e depository.Endpoint, a depository.AuthInfo, d depository.CustomizedData) *Request {
-	return &Request{e, a, d}
+func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
+	req := &Request{
+		URL:     endpoint.URL,
+		Method:  endpoint.Method,
+		Headers: http.Header{},
+		Cookies: []*http.Cookie{},
+		Body:    "",
+	}
+
+	req.AddHeaders(endpoint.Headers)
+	if auth != nil {
+		auth.Attach(req)
+	}
+	req.SetBody(endpoint.Body, vbs)
+
+	return req
+}
+
+// Add headers to request if exists
+func (req *Request) AddHeaders(headers map[string]string) {
+	if len(headers) != 0 {
+		for key, value := range headers {
+			req.Headers.Add(key, value)
+		}
+	}
+}
+
+// Set body from raw and customized data of body
+func (req *Request) SetBody(raw json.RawMessage, vbs Variables) {
+	var body string
+	rawBody := string(raw)
+	if len(vbs) != 0 {
+		replacer := vbs.newReplacer()
+		body = replacer.Replace(rawBody)
+	} else {
+		body = rawBody
+	}
+	req.Body = body
+}
+
+func (req *Request) available() bool {
+	if req.URL != "" && req.Method != "" {
+		return true
+	} else {
+		return false
+	}
 }
 
 func NewHTTPClient() *http.Client {
@@ -40,33 +85,27 @@ func (req *Request) HTTPRequest() (*http.Request, error) {
 		err  error
 	)
 
-	// Check endpoint whether is available
-	if !req.Endpoint.Available() {
+	// Check whether endpoint is available or not
+	if !req.available() {
 		return nil, ErrUndefinedAPI
 	}
 
 	// Prepare a request
-	if req.Endpoint.Method == http.MethodPost {
-		body := req.Data.Apply(req.Endpoint.Body)
-		buf := bytes.NewBufferString(body)
-		hreq, err = http.NewRequest(req.Endpoint.Method, req.Endpoint.URL, buf)
+	if req.Method == http.MethodPost {
+		buf := bytes.NewBufferString(req.Body)
+		hreq, err = http.NewRequest(req.Method, req.URL, buf)
 	} else {
-		hreq, err = http.NewRequest(req.Endpoint.Method, req.Endpoint.URL, nil)
+		hreq, err = http.NewRequest(req.Method, req.URL, nil)
 	}
 	if err != nil {
 		return nil, ErrHTTPRequest
 	}
 
 	// Add headers to request if exists
-	if len(req.Endpoint.Headers) != 0 {
-		for key, value := range req.Endpoint.Headers {
-			hreq.Header.Add(key, value)
-		}
-	}
-
-	// Attach AuthInfo to request if exists
-	if req.Auth != nil {
-		req.Auth.Attach(hreq)
+	hreq.Header = req.Headers
+	// Add cookies to request if exists
+	for _, cookie := range req.Cookies {
+		hreq.AddCookie(cookie)
 	}
 
 	return hreq, nil

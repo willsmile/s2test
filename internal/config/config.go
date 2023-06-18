@@ -5,8 +5,8 @@ import (
 	"errors"
 	"os"
 
-	"github.com/willsmile/s2test/internal/depository"
 	"github.com/willsmile/s2test/internal/executor"
+	myhttp "github.com/willsmile/s2test/internal/http"
 )
 
 var (
@@ -17,7 +17,7 @@ var (
 )
 
 type Config interface {
-	executor.Plan | depository.Endpoints
+	executor.Plan | myhttp.Endpoints
 }
 
 func LoadJSON[T Config](path string, t *T) error {

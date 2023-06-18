@@ -57,7 +57,7 @@ To prepare a test plan by using the following format (for example, let's name th
     {
       "targetAPI": "POST a sample post",
       "authMethod": "tokenA",
-      "data": {
+      "variables": {
         "sample_use_id": "1",
         "sample_post_title": "sample post title"
       }

@@ -6,9 +6,10 @@ import (
 	"github.com/urfave/cli/v2"
 
 	"github.com/willsmile/s2test/internal/config"
-	"github.com/willsmile/s2test/internal/depository"
 	"github.com/willsmile/s2test/internal/executor"
 	"github.com/willsmile/s2test/internal/reporter"
+
+	myhttp "github.com/willsmile/s2test/internal/http"
 )
 
 const (
@@ -44,7 +45,7 @@ func New() *cli.App {
 		Action: func(c *cli.Context) error {
 			var (
 				plan  executor.Plan
-				store depository.Endpoints
+				store myhttp.Endpoints
 				err   error
 			)
 

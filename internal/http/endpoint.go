@@ -1,4 +1,4 @@
-package depository
+package http
 
 import (
 	"encoding/json"
@@ -17,12 +17,4 @@ type Endpoint struct {
 
 func (store Endpoints) Endpoint(target string) Endpoint {
 	return store[target]
-}
-
-func (e Endpoint) Available() bool {
-	if e.URL != "" && e.Method != "" {
-		return true
-	} else {
-		return false
-	}
 }
