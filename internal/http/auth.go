@@ -26,7 +26,7 @@ type token struct {
 	tokenValue  string
 }
 
-func (m AuthMethods) AuthInfo(method string) AuthInfo {
+func (m AuthMethods) GetAuthInfo(method string) AuthInfo {
 	var authInfo AuthInfo
 	info := m[method]
 

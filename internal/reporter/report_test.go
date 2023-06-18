@@ -3,6 +3,8 @@ package reporter
 import (
 	"errors"
 	"testing"
+
+	myhttp "github.com/willsmile/s2test/internal/http"
 )
 
 func TestReportPrint_ValidReport(t *testing.T) {
@@ -10,15 +12,15 @@ func TestReportPrint_ValidReport(t *testing.T) {
 		ResultRequestSent,
 		"GET a sample post",
 		"",
-		"200 OK",
-		"{}",
+		&myhttp.Request{},
+		&myhttp.Response{},
 	)
 	report2 := NewReport(
 		ResultRequestSent,
 		"GET a sample todo",
 		"",
-		"200 OK",
-		"{}",
+		&myhttp.Request{},
+		&myhttp.Response{},
 	)
 	reports := Reports{*report1, *report2}
 

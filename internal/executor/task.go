@@ -13,30 +13,53 @@ type Task struct {
 }
 
 // Perform a task
-func (t Task) Perform(store *myhttp.Endpoints, methods *myhttp.AuthMethods) *reporter.Report {
-	endpoint := store.Endpoint(t.TargetAPI)
-	auth := methods.AuthInfo(t.AuthMethod)
-	variables := t.Variables
-	req, err := myhttp.NewRequest(endpoint, auth, variables).HTTPRequest()
+func (t Task) Perform(endpoints *myhttp.Endpoints, methods *myhttp.AuthMethods) *reporter.Report {
+	request := myhttp.NewRequest(
+		endpoints.GetEndpoint(t.TargetAPI),
+		methods.GetAuthInfo(t.AuthMethod),
+		t.Variables,
+	)
+
+	req, err := request.HTTPRequest()
 	if err != nil {
-		return t.generateReport(myhttp.DefaultResponse(), reporter.ResultRequestNotSent)
+		return t.reportNotSent(request)
 	}
 
 	client := myhttp.NewClient()
 	resp, err := myhttp.Send(req, client)
 	if err != nil {
-		return t.generateReport(myhttp.DefaultResponse(), reporter.ResultRequestError)
+		return t.reportError(request)
 	}
 
-	return t.generateReport(resp, reporter.ResultRequestSent)
+	return t.reportSent(request, resp)
 }
 
-func (t Task) generateReport(resp *myhttp.Response, result string) *reporter.Report {
+func (t Task) reportSent(req *myhttp.Request, resp *myhttp.Response) *reporter.Report {
 	return reporter.NewReport(
-		result,
+		reporter.ResultRequestSent,
 		t.TargetAPI,
 		t.AuthMethod,
-		resp.Body,
-		resp.Status,
+		req,
+		resp,
+	)
+}
+
+func (t Task) reportNotSent(req *myhttp.Request) *reporter.Report {
+	return reporter.NewReport(
+		reporter.ResultRequestNotSent,
+		t.TargetAPI,
+		t.AuthMethod,
+		req,
+		myhttp.DefaultResponse(),
+	)
+}
+
+func (t Task) reportError(req *myhttp.Request) *reporter.Report {
+	return reporter.NewReport(
+		reporter.ResultRequestError,
+		t.TargetAPI,
+		t.AuthMethod,
+		req,
+		myhttp.DefaultResponse(),
 	)
 }
