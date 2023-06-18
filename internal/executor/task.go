@@ -22,32 +22,44 @@ func (t Task) Perform(endpoints *myhttp.Endpoints, methods *myhttp.AuthMethods) 
 
 	req, err := request.HTTPRequest()
 	if err != nil {
-		return t.generateReport(
-			reporter.ResultRequestNotSent,
-			request,
-			myhttp.DefaultResponse(),
-		)
+		return t.reportNotSent(request)
 	}
 
 	client := myhttp.NewClient()
 	resp, err := myhttp.Send(req, client)
 	if err != nil {
-		return t.generateReport(
-			reporter.ResultRequestError,
-			request,
-			myhttp.DefaultResponse(),
-		)
+		return t.reportError(request)
 	}
 
-	return t.generateReport(reporter.ResultRequestSent, request, resp)
+	return t.reportSent(request, resp)
 }
 
-func (t Task) generateReport(result string, req *myhttp.Request, resp *myhttp.Response) *reporter.Report {
+func (t Task) reportSent(req *myhttp.Request, resp *myhttp.Response) *reporter.Report {
 	return reporter.NewReport(
-		result,
+		reporter.ResultRequestSent,
 		t.TargetAPI,
 		t.AuthMethod,
 		req,
 		resp,
+	)
+}
+
+func (t Task) reportNotSent(req *myhttp.Request) *reporter.Report {
+	return reporter.NewReport(
+		reporter.ResultRequestNotSent,
+		t.TargetAPI,
+		t.AuthMethod,
+		req,
+		myhttp.DefaultResponse(),
+	)
+}
+
+func (t Task) reportError(req *myhttp.Request) *reporter.Report {
+	return reporter.NewReport(
+		reporter.ResultRequestError,
+		t.TargetAPI,
+		t.AuthMethod,
+		req,
+		myhttp.DefaultResponse(),
 	)
 }
