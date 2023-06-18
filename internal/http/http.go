@@ -9,7 +9,7 @@ func NewHTTPClient() *http.Client {
 	return http.DefaultClient
 }
 
-func SendHTTPRequest(req *http.Request, client *http.Client) (*Response, error) {
+func Send(req *http.Request, client *http.Client) (*Response, error) {
 	response := NewResponse()
 
 	// Send HTTP request by client
