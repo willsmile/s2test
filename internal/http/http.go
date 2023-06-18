@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func NewHTTPClient() *http.Client {
+func NewClient() *http.Client {
 	return http.DefaultClient
 }
 

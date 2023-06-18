@@ -22,7 +22,7 @@ func (t Task) Perform(store *myhttp.Endpoints, methods *myhttp.AuthMethods) *rep
 		return t.generateReport(myhttp.DefaultResponse(), reporter.ResultRequestNotSent)
 	}
 
-	client := myhttp.NewHTTPClient()
+	client := myhttp.NewClient()
 	resp, err := myhttp.Send(req, client)
 	if err != nil {
 		return t.generateReport(myhttp.DefaultResponse(), reporter.ResultRequestError)
