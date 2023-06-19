@@ -3,6 +3,7 @@ package reporter
 import (
 	"errors"
 	"fmt"
+	"net/http"
 
 	"github.com/fatih/color"
 	myhttp "github.com/willsmile/s2test/internal/http"
@@ -56,6 +57,7 @@ func (reports Reports) Print() error {
 		v.printTarget()
 		v.printResult()
 		v.printResponse()
+		v.printRequest()
 	}
 
 	return nil
@@ -80,7 +82,7 @@ func (report Report) printResult() {
 	c.Printf("%s Result: %s\n", smallArrow, report.result)
 }
 
-// printResponse prints RespBody and RespStatus of Report
+// printResponse prints Response field of Report
 // when result is not RequestNotSent
 func (report Report) printResponse() {
 	if report.result == ResultRequestSent {
@@ -89,5 +91,54 @@ func (report Report) printResponse() {
 		fmt.Println(report.response.Status)
 		c.Printf("%s Response body: ", smallArrow)
 		fmt.Println(report.response.Body)
+	}
+}
+
+// printRequest prints Request field of Report
+func (report Report) printRequest() {
+	c := color.New(color.FgCyan)
+	c.Printf("%s Request URL: ", smallArrow)
+	fmt.Println(report.request.URL)
+
+	c.Printf("%s Request Method: ", smallArrow)
+	fmt.Println(report.request.Method)
+
+	c.Printf("%s Request Headers: ", smallArrow)
+	printHeaders(report.request.Headers)
+
+	c.Printf("%s Request Cookies: ", smallArrow)
+	printCookies(report.request.Cookies)
+
+	c.Printf("%s Request Body: ", smallArrow)
+	printBody(report.request.Body)
+}
+
+func printHeaders(headers http.Header) {
+	if len(headers) != 0 {
+		fmt.Printf("\n")
+		for k, v := range headers {
+			fmt.Println("   ", k, ":", v)
+		}
+	} else {
+		fmt.Println("Empty")
+	}
+}
+
+func printCookies(cookies []*http.Cookie) {
+	if len(cookies) != 0 {
+		fmt.Printf("\n")
+		for _, c := range cookies {
+			fmt.Println("   ", c)
+		}
+	} else {
+		fmt.Println("Empty")
+	}
+}
+
+func printBody(body string) {
+	if body == "" {
+		fmt.Println("Empty")
+	} else {
+		fmt.Println(body)
 	}
 }
