@@ -13,5 +13,12 @@ test:
 fmt:
 	go fmt ./...
 
+.PHONY: vet
+vet:
+	go vet ./...
+
+.PHONY: lint
+lint: vet fmt
+
 $(BIN): $(SOURCES)
 	go build -o $@
