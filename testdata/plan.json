@@ -28,11 +28,11 @@
     },
     {
       "targetAPI": "GET a sample todo",
-      "authMethod": ""
+      "authMethod": "cookieA"
     },
     {
       "targetAPI": "GET an invaild todo",
-      "authMethod": ""
+      "authMethod": "tokenA"
     },
     {
       "targetAPI": "Undefined target",
