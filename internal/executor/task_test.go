@@ -60,14 +60,14 @@ func createEndpoints() *myhttp.Endpoints {
 	}
 }
 
-func createAuthMethods() *myhttp.AuthMethods {
-	return &myhttp.AuthMethods{
-		"cookieA": {
+func createAuthMethods() *myhttp.AuthDataset {
+	return &myhttp.AuthDataset{
+		"cookieA": myhttp.AuthData{
 			"type":  "Cookie",
 			"name":  "cookieName",
 			"value": "cookieValue",
 		},
-		"tokenA": {
+		"tokenA": myhttp.AuthData{
 			"type":   "OAuth 2.0",
 			"prefix": "Bearer",
 			"value":  "tokenValue",

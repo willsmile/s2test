@@ -37,7 +37,7 @@ To prepare a test plan by using the following format (for example, let's name th
 {
   "goal": "Have a try on s2test",
   "targetPath": "./api.json",
-  "authMethods": {
+  "auths": {
     "cookieA": {
       "type": "Cookie",
       "name": "cookieName",

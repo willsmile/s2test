@@ -28,7 +28,7 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 	plan := Plan{
 		Goal:        "For test",
 		TargetPath:  "testdata/api.json",
-		AuthMethods: map[string]map[string]string{},
+		AuthDataset: myhttp.AuthDataset{},
 		Tasks: []Task{
 			{
 				TargetAPI:  "GET a sample post",
@@ -68,7 +68,7 @@ func TestPlanExecute_WithoutTasks(t *testing.T) {
 	plan := Plan{
 		Goal:        "For test",
 		TargetPath:  "testdata/api.json",
-		AuthMethods: map[string]map[string]string{},
+		AuthDataset: myhttp.AuthDataset{},
 		Tasks:       []Task{},
 	}
 
