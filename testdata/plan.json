@@ -16,11 +16,11 @@
   "tasks": [
     {
       "targetAPI": "GET a sample post",
-      "authMethod": ""
+      "auth": ""
     },
     {
       "targetAPI": "POST a sample post",
-      "authMethod": "",
+      "auth": "",
       "variables": {
         "sample_use_id": "1",
         "sample_post_title": "sample post title"
@@ -28,15 +28,15 @@
     },
     {
       "targetAPI": "GET a sample todo",
-      "authMethod": "cookieA"
+      "auth": "cookieA"
     },
     {
       "targetAPI": "GET an invaild todo",
-      "authMethod": "tokenA"
+      "auth": "tokenA"
     },
     {
       "targetAPI": "Undefined target",
-      "authMethod": ""
+      "auth": ""
     }
   ]
 }

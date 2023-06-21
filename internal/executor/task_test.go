@@ -9,35 +9,35 @@ import (
 
 func TestTaskPerform_existingTarget(t *testing.T) {
 	endpoints := createEndpoints()
-	methods := createAuthMethods()
+	dataset := createAuthDataset()
 	task := Task{
-		TargetAPI:  "GET a sample post",
-		AuthMethod: "",
-		Variables:  myhttp.Variables{},
+		TargetAPI: "GET a sample post",
+		Auth:      "",
+		Variables: myhttp.Variables{},
 	}
 
-	report := task.Perform(endpoints, methods)
+	report := task.Perform(endpoints, dataset)
 	result := report.GetResult()
 
 	if result != reporter.ResultRequestSent {
-		t.Fatalf("task.Perform(&endpoints, &methods), expected ResultRequestSent as result, got %s", result)
+		t.Fatalf("task.Perform(endpoints, dataset), expected ResultRequestSent as result, got %s", result)
 	}
 }
 
 func TestTaskPerform_notExistingTarget(t *testing.T) {
 	endpoints := createEndpoints()
-	methods := createAuthMethods()
+	dataset := createAuthDataset()
 	task := Task{
-		TargetAPI:  "Not Existing Target",
-		AuthMethod: "",
-		Variables:  myhttp.Variables{},
+		TargetAPI: "Not Existing Target",
+		Auth:      "",
+		Variables: myhttp.Variables{},
 	}
 
-	report := task.Perform(endpoints, methods)
+	report := task.Perform(endpoints, dataset)
 	result := report.GetResult()
 
 	if result != reporter.ResultRequestNotSent {
-		t.Fatalf("task.Perform(&endpoints, &methods), expected ResultRequestNotSent as result, got %s", result)
+		t.Fatalf("task.Perform(endpoints, dataset), expected ResultRequestNotSent as result, got %s", result)
 	}
 }
 
@@ -60,7 +60,7 @@ func createEndpoints() *myhttp.Endpoints {
 	}
 }
 
-func createAuthMethods() *myhttp.AuthDataset {
+func createAuthDataset() *myhttp.AuthDataset {
 	return &myhttp.AuthDataset{
 		"cookieA": myhttp.AuthData{
 			"type":  "Cookie",

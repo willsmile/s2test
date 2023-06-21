@@ -31,12 +31,12 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 		AuthDataset: myhttp.AuthDataset{},
 		Tasks: []Task{
 			{
-				TargetAPI:  "GET a sample post",
-				AuthMethod: "",
+				TargetAPI: "GET a sample post",
+				Auth:      "",
 			},
 			{
-				TargetAPI:  "Undefined target",
-				AuthMethod: "",
+				TargetAPI: "Undefined target",
+				Auth:      "",
 			},
 		},
 	}

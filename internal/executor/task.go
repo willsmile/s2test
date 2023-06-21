@@ -7,16 +7,16 @@ import (
 
 // Task is a task definition for test
 type Task struct {
-	TargetAPI  string           `json:"targetAPI"`
-	AuthMethod string           `json:"authMethod"`
-	Variables  myhttp.Variables `json:"variables"`
+	TargetAPI string           `json:"targetAPI"`
+	Auth      string           `json:"auth"`
+	Variables myhttp.Variables `json:"variables"`
 }
 
 // Perform a task
 func (t Task) Perform(endpoints *myhttp.Endpoints, dataset *myhttp.AuthDataset) *reporter.Report {
 	request := myhttp.NewRequest(
 		endpoints.GetEndpoint(t.TargetAPI),
-		dataset.Select(t.AuthMethod).NewAuthInfo(),
+		dataset.Select(t.Auth).NewAuthInfo(),
 		t.Variables,
 	)
 
@@ -38,7 +38,7 @@ func (t Task) reportSent(req *myhttp.Request, resp *myhttp.Response) *reporter.R
 	return reporter.NewReport(
 		reporter.ResultRequestSent,
 		t.TargetAPI,
-		t.AuthMethod,
+		t.Auth,
 		req,
 		resp,
 	)
@@ -48,7 +48,7 @@ func (t Task) reportNotSent(req *myhttp.Request) *reporter.Report {
 	return reporter.NewReport(
 		reporter.ResultRequestNotSent,
 		t.TargetAPI,
-		t.AuthMethod,
+		t.Auth,
 		req,
 		myhttp.DefaultResponse(),
 	)
@@ -58,7 +58,7 @@ func (t Task) reportError(req *myhttp.Request) *reporter.Report {
 	return reporter.NewReport(
 		reporter.ResultRequestError,
 		t.TargetAPI,
-		t.AuthMethod,
+		t.Auth,
 		req,
 		myhttp.DefaultResponse(),
 	)
