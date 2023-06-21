@@ -52,11 +52,11 @@ To prepare a test plan by using the following format (for example, let's name th
   "tasks": [
     {
       "targetAPI": "GET a sample post",
-      "authMethod": "tokenA"
+      "auth": "tokenA"
     },
     {
       "targetAPI": "POST a sample post",
-      "authMethod": "tokenA",
+      "auth": "tokenA",
       "variables": {
         "sample_use_id": "1",
         "sample_post_title": "sample post title"
