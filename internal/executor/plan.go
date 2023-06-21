@@ -16,7 +16,7 @@ var (
 type Plan struct {
 	Goal        string             `json:"goal"`
 	TargetPath  string             `json:"targetPath"`
-	AuthMethods myhttp.AuthMethods `json:"authMethods"`
+	AuthDataset myhttp.AuthDataset `json:"auths"`
 	Tasks       []Task             `json:"tasks"`
 }
 
@@ -29,7 +29,7 @@ func (p Plan) Execute(store *myhttp.Endpoints) (reporter.Reports, error) {
 	}
 
 	for _, task := range p.Tasks {
-		entity := task.Perform(store, &p.AuthMethods)
+		entity := task.Perform(store, &p.AuthDataset)
 		reports = append(reports, *entity)
 	}
 
