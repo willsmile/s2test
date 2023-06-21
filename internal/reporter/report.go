@@ -63,6 +63,10 @@ func (reports Reports) Print() error {
 	return nil
 }
 
+func (report Report) GetResult() string {
+	return report.result
+}
+
 // printTarget prints ReqTarget of Report
 func (report Report) printTarget() {
 	c := color.New(color.FgYellow, color.Bold)
