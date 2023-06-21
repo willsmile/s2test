@@ -11,8 +11,8 @@ type AuthData map[string]string
 // AuthDataset is a dataset to store AuthData
 type AuthDataset map[string]AuthData
 
-func (s AuthDataset) Select(method string) AuthData {
-	return s[method]
+func (s AuthDataset) Select(auth string) AuthData {
+	return s[auth]
 }
 
 func (data AuthData) isCookie() bool {
