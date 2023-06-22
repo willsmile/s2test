@@ -39,7 +39,7 @@ func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
 	if auth != nil {
 		auth.Attach(req)
 	}
-	req.SetBody(endpoint.Body, vbs)
+	req.setBody(endpoint.Body, vbs)
 
 	return req
 }
@@ -54,7 +54,7 @@ func (req *Request) addHeaders(headers map[string]string) {
 }
 
 // Set body from raw and customized data of body
-func (req *Request) SetBody(raw json.RawMessage, vbs Variables) {
+func (req *Request) setBody(raw json.RawMessage, vbs Variables) {
 	var body string
 	rawBody := string(raw)
 	if len(vbs) != 0 {
