@@ -6,8 +6,8 @@ type Response struct {
 	Status string
 }
 
-// NewResponse creates an empty response
-func NewResponse() *Response {
+// newResponse creates an empty response
+func newResponse() *Response {
 	return &Response{}
 }
 
