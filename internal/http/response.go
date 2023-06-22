@@ -6,11 +6,6 @@ type Response struct {
 	Status string
 }
 
-// newResponse creates an empty response
-func newResponse() *Response {
-	return &Response{}
-}
-
 // DefaultResponse creates a response with default values
 func DefaultResponse() *Response {
 	return &Response{
