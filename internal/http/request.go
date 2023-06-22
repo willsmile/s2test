@@ -35,7 +35,7 @@ func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
 		Body:    "",
 	}
 
-	req.AddHeaders(endpoint.Headers)
+	req.addHeaders(endpoint.Headers)
 	if auth != nil {
 		auth.Attach(req)
 	}
@@ -45,7 +45,7 @@ func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
 }
 
 // Add headers to request if exists
-func (req *Request) AddHeaders(headers map[string]string) {
+func (req *Request) addHeaders(headers map[string]string) {
 	if len(headers) != 0 {
 		for key, value := range headers {
 			req.Headers.Add(key, value)
