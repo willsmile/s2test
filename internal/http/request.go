@@ -73,7 +73,7 @@ func (req *Request) HTTPRequest() (*http.Request, error) {
 	)
 
 	// Check whether endpoint is available or not
-	if !req.available() {
+	if !req.isAvailable() {
 		return nil, ErrUndefinedAPI
 	}
 
@@ -98,7 +98,7 @@ func (req *Request) HTTPRequest() (*http.Request, error) {
 	return hreq, nil
 }
 
-func (req *Request) available() bool {
+func (req *Request) isAvailable() bool {
 	if req.URL != "" && req.Method != "" {
 		return true
 	} else {
