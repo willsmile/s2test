@@ -1,22 +1,11 @@
 package http
 
 import (
-	"encoding/json"
 	"fmt"
 	"strings"
 )
 
 type Variables map[string]string
-
-func (vbs Variables) Apply(raw json.RawMessage) string {
-	result := string(raw)
-	if len(vbs) == 0 {
-		return result
-	}
-	replacer := vbs.newReplacer()
-
-	return replacer.Replace(result)
-}
 
 func (vbs Variables) newReplacer() *strings.Replacer {
 	var oldnew []string
