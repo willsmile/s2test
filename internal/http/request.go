@@ -35,17 +35,17 @@ func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
 		Body:    "",
 	}
 
-	req.AddHeaders(endpoint.Headers)
+	req.addHeaders(endpoint.Headers)
 	if auth != nil {
-		auth.Attach(req)
+		auth.attach(req)
 	}
-	req.SetBody(endpoint.Body, vbs)
+	req.setBody(endpoint.Body, vbs)
 
 	return req
 }
 
 // Add headers to request if exists
-func (req *Request) AddHeaders(headers map[string]string) {
+func (req *Request) addHeaders(headers map[string]string) {
 	if len(headers) != 0 {
 		for key, value := range headers {
 			req.Headers.Add(key, value)
@@ -54,7 +54,7 @@ func (req *Request) AddHeaders(headers map[string]string) {
 }
 
 // Set body from raw and customized data of body
-func (req *Request) SetBody(raw json.RawMessage, vbs Variables) {
+func (req *Request) setBody(raw json.RawMessage, vbs Variables) {
 	var body string
 	rawBody := string(raw)
 	if len(vbs) != 0 {
@@ -73,7 +73,7 @@ func (req *Request) HTTPRequest() (*http.Request, error) {
 	)
 
 	// Check whether endpoint is available or not
-	if !req.available() {
+	if !req.isAvailable() {
 		return nil, ErrUndefinedAPI
 	}
 
@@ -98,7 +98,7 @@ func (req *Request) HTTPRequest() (*http.Request, error) {
 	return hreq, nil
 }
 
-func (req *Request) available() bool {
+func (req *Request) isAvailable() bool {
 	if req.URL != "" && req.Method != "" {
 		return true
 	} else {

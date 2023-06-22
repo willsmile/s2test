@@ -10,7 +10,7 @@ func NewClient() *http.Client {
 }
 
 func Send(req *http.Request, client *http.Client) (*Response, error) {
-	response := NewResponse()
+	response := &Response{}
 
 	// Send HTTP request by client
 	resp, err := client.Do(req)
