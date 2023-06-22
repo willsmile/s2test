@@ -37,7 +37,7 @@ func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
 
 	req.addHeaders(endpoint.Headers)
 	if auth != nil {
-		auth.Attach(req)
+		auth.attach(req)
 	}
 	req.setBody(endpoint.Body, vbs)
 
