@@ -14,10 +14,10 @@ var (
 
 // Plan is a plan that contains test information
 type Plan struct {
-	Goal        string             `json:"goal"`
-	TargetPath  string             `json:"targetPath"`
-	AuthDataset myhttp.AuthDataset `json:"auths"`
-	Tasks       []Task             `json:"tasks"`
+	Goal              string             `json:"goal"`
+	EndpointsFilepath string             `json:"endpoints"`
+	AuthDataset       myhttp.AuthDataset `json:"auths"`
+	Tasks             []Task             `json:"tasks"`
 }
 
 // Execute a plan
@@ -38,7 +38,7 @@ func (p Plan) Execute(store *myhttp.Endpoints) (reporter.Reports, error) {
 
 func (p Plan) APIPath(s string) string {
 	if s == "" {
-		return p.TargetPath
+		return p.EndpointsFilepath
 	} else {
 		return s
 	}

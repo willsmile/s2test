@@ -36,7 +36,7 @@ To prepare a test plan by using the following format (for example, let's name th
 ```json
 {
   "goal": "Have a try on s2test",
-  "targetPath": "./api.json",
+  "endpoints": "./api.json",
   "auths": {
     "cookieA": {
       "type": "Cookie",
@@ -99,7 +99,7 @@ Also, to write down the information of test target API by using the following fo
 ./s2test -p plan.json -a api.json
 ```
 
-- Run with only `plan path` (`api path` will be set with the value of `targetPath` in test plan file)
+- Run with only `plan path` (`api path` will be set with the value of `endpoints` in test plan file)
 ```
 ./s2test -p plan.json
 ```
