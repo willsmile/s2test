@@ -9,14 +9,14 @@ import (
 
 func TestReportPrint_ValidReport(t *testing.T) {
 	report1 := NewReport(
-		ResultRequestSent,
+		RequestSent,
 		"GET a sample post",
 		"",
 		&myhttp.Request{},
 		&myhttp.Response{},
 	)
 	report2 := NewReport(
-		ResultRequestSent,
+		RequestSent,
 		"GET a sample todo",
 		"",
 		&myhttp.Request{},

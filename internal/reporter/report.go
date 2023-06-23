@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	ResultRequestSent    = "SENT"
-	ResultRequestNotSent = "NOT SENT"
-	ResultRequestError   = "ERROR"
+	RequestSent    result = "SENT"
+	RequestNotSent result = "NOT SENT"
+	RequestError   result = "ERROR"
 )
 
 const (
@@ -30,14 +30,16 @@ type Reports []Report
 
 // Report records the results on the execution of each task
 type Report struct {
-	result   string
+	result   result
 	target   string
 	auth     string
 	request  *myhttp.Request
 	response *myhttp.Response
 }
 
-func NewReport(result string, target string, auth string, req *myhttp.Request, resp *myhttp.Response) *Report {
+type result string
+
+func NewReport(result result, target string, auth string, req *myhttp.Request, resp *myhttp.Response) *Report {
 	return &Report{
 		result:   result,
 		target:   target,
@@ -63,7 +65,7 @@ func (reports Reports) Print() error {
 	return nil
 }
 
-func (report Report) GetResult() string {
+func (report Report) GetResult() result {
 	return report.result
 }
 
@@ -77,7 +79,7 @@ func (report Report) printTarget() {
 func (report Report) printResult() {
 	var c *color.Color
 
-	if report.result == ResultRequestSent {
+	if report.result == RequestSent {
 		c = color.New(color.FgGreen)
 	} else {
 		c = color.New(color.FgRed)
@@ -89,7 +91,7 @@ func (report Report) printResult() {
 // printResponse prints Response field of Report
 // when result is not RequestNotSent
 func (report Report) printResponse() {
-	if report.result == ResultRequestSent {
+	if report.result == RequestSent {
 		c := color.New(color.FgBlue)
 		c.Printf("%s Response state: ", smallArrow)
 		fmt.Println(report.response.Status)
