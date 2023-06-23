@@ -15,7 +15,7 @@ var (
 // Plan is a plan that contains test information
 type Plan struct {
 	Goal        string             `json:"goal"`
-	TargetPath  string             `json:"targetPath"`
+	TargetPath  string             `json:"endpoints"`
 	AuthDataset myhttp.AuthDataset `json:"auths"`
 	Tasks       []Task             `json:"tasks"`
 }
