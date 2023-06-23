@@ -69,13 +69,13 @@ func (report Report) GetResult() result {
 	return report.result
 }
 
-// printTarget prints ReqTarget of Report
+// printTarget prints target of Report
 func (report Report) printTarget() {
 	c := color.New(color.FgYellow, color.Bold)
 	c.Printf("%s Target API: %s\n", arrow, report.target)
 }
 
-// printTarget prints Result of Report
+// printTarget prints result of Report
 func (report Report) printResult() {
 	var c *color.Color
 
@@ -88,7 +88,7 @@ func (report Report) printResult() {
 	c.Printf("%s Result: %s\n", smallArrow, report.result)
 }
 
-// printResponse prints Response field of Report
+// printResponse prints response of Report
 // when result is not RequestNotSent
 func (report Report) printResponse() {
 	if report.result == RequestSent {
@@ -100,7 +100,7 @@ func (report Report) printResponse() {
 	}
 }
 
-// printRequest prints Request field of Report
+// printRequest prints request of Report
 func (report Report) printRequest() {
 	c := color.New(color.FgCyan)
 	c.Printf("%s Request URL: ", smallArrow)
