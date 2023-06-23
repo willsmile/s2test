@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	ResultRequestSent    = "SENT"
-	ResultRequestNotSent = "NOT SENT"
-	ResultRequestError   = "ERROR"
+	RequestSent    result = "SENT"
+	RequestNotSent result = "NOT SENT"
+	RequestError   result = "ERROR"
 )
 
 const (
@@ -30,14 +30,16 @@ type Reports []Report
 
 // Report records the results on the execution of each task
 type Report struct {
-	result   string
+	result   result
 	target   string
 	auth     string
 	request  *myhttp.Request
 	response *myhttp.Response
 }
 
-func NewReport(result string, target string, auth string, req *myhttp.Request, resp *myhttp.Response) *Report {
+type result string
+
+func NewReport(result result, target string, auth string, req *myhttp.Request, resp *myhttp.Response) *Report {
 	return &Report{
 		result:   result,
 		target:   target,
@@ -63,21 +65,21 @@ func (reports Reports) Print() error {
 	return nil
 }
 
-func (report Report) GetResult() string {
+func (report Report) GetResult() result {
 	return report.result
 }
 
-// printTarget prints ReqTarget of Report
+// printTarget prints target of Report
 func (report Report) printTarget() {
 	c := color.New(color.FgYellow, color.Bold)
 	c.Printf("%s Target API: %s\n", arrow, report.target)
 }
 
-// printTarget prints Result of Report
+// printTarget prints result of Report
 func (report Report) printResult() {
 	var c *color.Color
 
-	if report.result == ResultRequestSent {
+	if report.result == RequestSent {
 		c = color.New(color.FgGreen)
 	} else {
 		c = color.New(color.FgRed)
@@ -86,10 +88,10 @@ func (report Report) printResult() {
 	c.Printf("%s Result: %s\n", smallArrow, report.result)
 }
 
-// printResponse prints Response field of Report
+// printResponse prints response of Report
 // when result is not RequestNotSent
 func (report Report) printResponse() {
-	if report.result == ResultRequestSent {
+	if report.result == RequestSent {
 		c := color.New(color.FgBlue)
 		c.Printf("%s Response state: ", smallArrow)
 		fmt.Println(report.response.Status)
@@ -98,7 +100,7 @@ func (report Report) printResponse() {
 	}
 }
 
-// printRequest prints Request field of Report
+// printRequest prints request of Report
 func (report Report) printRequest() {
 	c := color.New(color.FgCyan)
 	c.Printf("%s Request URL: ", smallArrow)

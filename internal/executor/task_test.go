@@ -19,8 +19,8 @@ func TestTaskPerform_existingTarget(t *testing.T) {
 	report := task.Perform(endpoints, dataset)
 	result := report.GetResult()
 
-	if result != reporter.ResultRequestSent {
-		t.Fatalf("task.Perform(endpoints, dataset), expected ResultRequestSent as result, got %s", result)
+	if result != reporter.RequestSent {
+		t.Fatalf("task.Perform(endpoints, dataset), expected RequestSent as result, got %s", result)
 	}
 }
 
@@ -36,8 +36,8 @@ func TestTaskPerform_notExistingTarget(t *testing.T) {
 	report := task.Perform(endpoints, dataset)
 	result := report.GetResult()
 
-	if result != reporter.ResultRequestNotSent {
-		t.Fatalf("task.Perform(endpoints, dataset), expected ResultRequestNotSent as result, got %s", result)
+	if result != reporter.RequestNotSent {
+		t.Fatalf("task.Perform(endpoints, dataset), expected RequestNotSent as result, got %s", result)
 	}
 }
 

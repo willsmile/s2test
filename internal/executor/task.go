@@ -36,7 +36,7 @@ func (t Task) Perform(endpoints *myhttp.Endpoints, dataset *myhttp.AuthDataset) 
 
 func (t Task) reportSent(req *myhttp.Request, resp *myhttp.Response) *reporter.Report {
 	return reporter.NewReport(
-		reporter.ResultRequestSent,
+		reporter.RequestSent,
 		t.TargetAPI,
 		t.Auth,
 		req,
@@ -46,7 +46,7 @@ func (t Task) reportSent(req *myhttp.Request, resp *myhttp.Response) *reporter.R
 
 func (t Task) reportNotSent(req *myhttp.Request) *reporter.Report {
 	return reporter.NewReport(
-		reporter.ResultRequestNotSent,
+		reporter.RequestNotSent,
 		t.TargetAPI,
 		t.Auth,
 		req,
@@ -56,7 +56,7 @@ func (t Task) reportNotSent(req *myhttp.Request) *reporter.Report {
 
 func (t Task) reportError(req *myhttp.Request) *reporter.Report {
 	return reporter.NewReport(
-		reporter.ResultRequestError,
+		reporter.RequestError,
 		t.TargetAPI,
 		t.Auth,
 		req,
