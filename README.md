@@ -37,6 +37,7 @@ To prepare a test plan by using the following format (for example, let's name th
 {
   "goal": "Have a try on s2test",
   "endpoints": "./api.json",
+  "ua": "tester",
   "auths": {
     "cookieA": {
       "type": "Cookie",
