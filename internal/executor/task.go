@@ -13,11 +13,12 @@ type Task struct {
 }
 
 // Perform a task
-func (t Task) Perform(endpoints *myhttp.Endpoints, dataset *myhttp.AuthDataset) *reporter.Report {
+func (t Task) Perform(endpoints *myhttp.Endpoints, dataset *myhttp.AuthDataset, ua string) *reporter.Report {
 	request := myhttp.NewRequest(
 		endpoints.GetEndpoint(t.TargetAPI),
 		dataset.Select(t.Auth).NewAuthInfo(),
 		t.Variables,
+		ua,
 	)
 
 	req, err := request.HTTPRequest()

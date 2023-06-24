@@ -1,6 +1,7 @@
 {
   "goal": "Have a try on s2test",
   "endpoints": "testdata/api.json",
+  "ua": "tester",
   "auths": {
     "cookieA": {
       "type": "Cookie",
