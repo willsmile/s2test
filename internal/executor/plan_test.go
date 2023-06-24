@@ -41,9 +41,10 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 		},
 	}
 
-	_, err := plan.Execute(&store)
+	appInfo := "test"
+	_, err := plan.Execute(&store, appInfo)
 	if err != nil {
-		t.Fatalf("plan.Execute(&store), expected none error, got %s", err)
+		t.Fatalf("plan.Execute(&store, appInfo), expected none error, got %s", err)
 	}
 }
 
@@ -72,8 +73,9 @@ func TestPlanExecute_WithoutTasks(t *testing.T) {
 		Tasks:             []Task{},
 	}
 
-	_, err := plan.Execute(&store)
+	appInfo := "test"
+	_, err := plan.Execute(&store, appInfo)
 	if !errors.Is(err, ErrNoTasksToExecute) {
-		t.Fatalf("plan.Execute(&store), expected %s, got %s", ErrNoTasksToExecute, err)
+		t.Fatalf("plan.Execute(&store, appInfo), expected %s, got %s", ErrNoTasksToExecute, err)
 	}
 }

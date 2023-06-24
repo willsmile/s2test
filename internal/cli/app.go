@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/urfave/cli/v2"
@@ -13,13 +14,13 @@ import (
 )
 
 const (
-	Name    = "s2test"
+	appName = "s2test"
 	version = "0.4.0"
 )
 
 func New() *cli.App {
 	app := &cli.App{
-		Name:    "s2test",
+		Name:    appName,
 		Usage:   "A Simple Smoke Test Tool",
 		Version: version,
 		Authors: []*cli.Author{
@@ -55,13 +56,13 @@ func New() *cli.App {
 				return err
 			}
 
-			apiPath := plan.APIPath(c.String("api"))
+			apiPath := plan.GetEndpointsPath(c.String("api"))
 			err = config.LoadJSON(apiPath, &store)
 			if err != nil {
 				return err
 			}
 
-			reports, err := plan.Execute(&store)
+			reports, err := plan.Execute(&store, appInfo())
 			if err != nil {
 				return err
 			}
@@ -85,4 +86,8 @@ func Log(err error) {
 	default:
 		log.Fatal("[ERROR] ", err)
 	}
+}
+
+func appInfo() string {
+	return fmt.Sprintf("%s %s", appName, version)
 }

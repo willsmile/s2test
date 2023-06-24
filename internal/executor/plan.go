@@ -16,30 +16,40 @@ var (
 type Plan struct {
 	Goal              string             `json:"goal"`
 	EndpointsFilepath string             `json:"endpoints"`
+	UserAgent         string             `json:"ua"`
 	AuthDataset       myhttp.AuthDataset `json:"auths"`
 	Tasks             []Task             `json:"tasks"`
 }
 
 // Execute a plan
-func (p Plan) Execute(store *myhttp.Endpoints) (reporter.Reports, error) {
+func (p Plan) Execute(store *myhttp.Endpoints, info string) (reporter.Reports, error) {
 	var reports reporter.Reports
 
 	if len(p.Tasks) == 0 {
 		return reports, ErrNoTasksToExecute
 	}
 
+	ua := p.GetUserAgent(info)
 	for _, task := range p.Tasks {
-		entity := task.Perform(store, &p.AuthDataset)
+		entity := task.Perform(store, &p.AuthDataset, ua)
 		reports = append(reports, *entity)
 	}
 
 	return reports, nil
 }
 
-func (p Plan) APIPath(s string) string {
+func (p Plan) GetEndpointsPath(s string) string {
 	if s == "" {
 		return p.EndpointsFilepath
 	} else {
 		return s
 	}
+}
+
+func (p Plan) GetUserAgent(appInfo string) string {
+	if p.UserAgent != "" {
+		return p.UserAgent
+	}
+
+	return appInfo
 }

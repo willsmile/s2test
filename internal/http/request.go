@@ -26,7 +26,7 @@ type Request struct {
 	Body    string
 }
 
-func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
+func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables, ua string) *Request {
 	req := &Request{
 		URL:     endpoint.URL,
 		Method:  endpoint.Method,
@@ -40,6 +40,7 @@ func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables) *Request {
 		auth.attach(req)
 	}
 	req.setBody(endpoint.Body, vbs)
+	req.setUserAgent(ua)
 
 	return req
 }
@@ -64,6 +65,10 @@ func (req *Request) setBody(raw json.RawMessage, vbs Variables) {
 		body = rawBody
 	}
 	req.Body = body
+}
+
+func (req *Request) setUserAgent(ua string) {
+	req.Headers.Set("User-Agent", ua)
 }
 
 func (req *Request) HTTPRequest() (*http.Request, error) {

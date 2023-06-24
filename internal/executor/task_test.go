@@ -10,13 +10,14 @@ import (
 func TestTaskPerform_existingTarget(t *testing.T) {
 	endpoints := createEndpoints()
 	dataset := createAuthDataset()
+	ua := createUserAgent()
 	task := Task{
 		TargetAPI: "GET a sample post",
 		Auth:      "",
 		Variables: myhttp.Variables{},
 	}
 
-	report := task.Perform(endpoints, dataset)
+	report := task.Perform(endpoints, dataset, ua)
 	result := report.GetResult()
 
 	if result != reporter.RequestSent {
@@ -27,13 +28,14 @@ func TestTaskPerform_existingTarget(t *testing.T) {
 func TestTaskPerform_notExistingTarget(t *testing.T) {
 	endpoints := createEndpoints()
 	dataset := createAuthDataset()
+	ua := createUserAgent()
 	task := Task{
 		TargetAPI: "Not Existing Target",
 		Auth:      "",
 		Variables: myhttp.Variables{},
 	}
 
-	report := task.Perform(endpoints, dataset)
+	report := task.Perform(endpoints, dataset, ua)
 	result := report.GetResult()
 
 	if result != reporter.RequestNotSent {
@@ -73,4 +75,8 @@ func createAuthDataset() *myhttp.AuthDataset {
 			"value":  "tokenValue",
 		},
 	}
+}
+
+func createUserAgent() string {
+	return "test"
 }
