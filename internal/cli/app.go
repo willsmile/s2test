@@ -47,18 +47,15 @@ func New() *cli.App {
 			var (
 				plan  executor.Plan
 				store myhttp.Endpoints
-				err   error
 			)
 
 			planPath := c.String("plan")
-			err = config.LoadJSON(planPath, &plan)
-			if err != nil {
+			if err := config.LoadJSON(planPath, &plan); err != nil {
 				return err
 			}
 
 			apiPath := plan.GetEndpointsPath(c.String("api"))
-			err = config.LoadJSON(apiPath, &store)
-			if err != nil {
+			if err := config.LoadJSON(apiPath, &store); err != nil {
 				return err
 			}
 
@@ -67,8 +64,7 @@ func New() *cli.App {
 				return err
 			}
 
-			err = reports.Print()
-			if err != nil {
+			if err := reports.Print(); err != nil {
 				return err
 			}
 
