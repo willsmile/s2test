@@ -10,12 +10,6 @@ import (
 )
 
 const (
-	RequestSent    result = "SENT"
-	RequestNotSent result = "NOT SENT"
-	RequestError   result = "ERROR"
-)
-
-const (
 	arrow      = "==>"
 	smallArrow = " ->"
 )
@@ -36,8 +30,6 @@ type Report struct {
 	request  *myhttp.Request
 	response *myhttp.Response
 }
-
-type result string
 
 func NewReport(result result, target string, auth string, req *myhttp.Request, resp *myhttp.Response) *Report {
 	return &Report{
