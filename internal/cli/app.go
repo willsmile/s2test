@@ -15,7 +15,7 @@ import (
 
 const (
 	appName = "s2test"
-	version = "0.5.0"
+	version = "0.5.1"
 )
 
 func New() *cli.App {
