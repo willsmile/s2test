@@ -8,7 +8,7 @@ import (
 )
 
 // Print prints out each Report in Reports
-func (reports Reports) Print() error {
+func (reports Reports) Print(m printMode) error {
 	if len(reports) == 0 {
 		return ErrEmptyReport
 	}
@@ -16,8 +16,17 @@ func (reports Reports) Print() error {
 	for _, v := range reports {
 		v.printTarget()
 		v.printResult()
-		v.printResponse()
-		v.printRequest()
+		switch m {
+		case FullMode:
+			v.printResponseState()
+			v.printResponseBody()
+			v.printRequest()
+		case NormalMode:
+			v.printResponseState()
+			v.printResponseBody()
+		case ShortMode:
+			v.printResponseState()
+		}
 	}
 
 	return nil
@@ -42,13 +51,21 @@ func (report Report) printResult() {
 	c.Printf("%s Result: %s\n", smallArrow, report.result)
 }
 
-// printResponse prints response of Report
+// printResponseState prints response state of Report
 // when result is not RequestNotSent
-func (report Report) printResponse() {
+func (report Report) printResponseState() {
 	if report.result == RequestSent {
 		c := color.New(color.FgBlue)
 		c.Printf("%s Response state: ", smallArrow)
 		fmt.Println(report.response.Status)
+	}
+}
+
+// printResponseBody prints response body of Report
+// when result is not RequestNotSent
+func (report Report) printResponseBody() {
+	if report.result == RequestSent {
+		c := color.New(color.FgBlue)
 		c.Printf("%s Response body: ", smallArrow)
 		fmt.Println(report.response.Body)
 	}
