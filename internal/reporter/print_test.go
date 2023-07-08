@@ -24,7 +24,8 @@ func TestReportPrint_ValidReport(t *testing.T) {
 	)
 	reports := Reports{*report1, *report2}
 
-	err := reports.Print()
+	mode, _ := NewPrintMode("normal")
+	err := reports.Print(mode)
 	if err != nil {
 		t.Fatalf("reports.Print(), expected none error, got %s", err)
 	}
@@ -33,7 +34,8 @@ func TestReportPrint_ValidReport(t *testing.T) {
 func TestReportPrint_EmptyReport(t *testing.T) {
 	reports := Reports{}
 
-	err := reports.Print()
+	mode, _ := NewPrintMode("normal")
+	err := reports.Print(mode)
 	if !errors.Is(err, ErrEmptyReport) {
 		t.Fatalf("reports.Print(), expected %s, got %s", ErrEmptyReport, err)
 	}

@@ -42,6 +42,12 @@ func New() *cli.App {
 				Value:   "",
 				Usage:   "Path of API endpoints",
 			},
+			&cli.StringFlag{
+				Name:    "mode",
+				Aliases: []string{"m"},
+				Value:   "normal",
+				Usage:   "Select print mode",
+			},
 		},
 		Action: func(c *cli.Context) error {
 			var (
@@ -64,7 +70,11 @@ func New() *cli.App {
 				return err
 			}
 
-			if err := reports.Print(); err != nil {
+			printMode, err := reporter.NewPrintMode(c.String("mode"))
+			if err != nil {
+				return err
+			}
+			if err := reports.Print(printMode); err != nil {
 				return err
 			}
 
