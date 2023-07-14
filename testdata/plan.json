@@ -5,8 +5,13 @@
   "auths": {
     "cookieA": {
       "type": "Cookie",
-      "name": "cookieName",
-      "value": "cookieValue"
+      "name": "cookieNameA",
+      "value": "cookieValueA"
+    },
+    "cookieB": {
+      "type": "Cookie",
+      "name": "cookieNameB",
+      "value": "cookieValueB"
     },
     "tokenA": {
       "type": "OAuth 2.0",
@@ -17,7 +22,7 @@
   "tasks": [
     {
       "targetAPI": "GET a sample post",
-      "auth": ""
+      "auth": []
     },
     {
       "targetAPI": "POST a sample post",
@@ -29,15 +34,23 @@
     },
     {
       "targetAPI": "GET a sample todo",
-      "auth": "cookieA"
+      "auth": ["cookieA"]
     },
     {
       "targetAPI": "GET an invaild todo",
-      "auth": "tokenA"
+      "auth": ["tokenA"]
+    },
+    {
+      "targetAPI": "GET a sample todo",
+      "auth": ["cookieA", "cookieB"]
+    },
+    {
+      "targetAPI": "GET an invaild todo",
+      "auth": ["tokenA", "cookieA"]
     },
     {
       "targetAPI": "Undefined target",
-      "auth": ""
+      "auth": []
     }
   ]
 }

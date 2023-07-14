@@ -32,11 +32,11 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 		Tasks: []Task{
 			{
 				TargetAPI: "GET a sample post",
-				Auth:      "",
+				Auth:      []string{},
 			},
 			{
 				TargetAPI: "Undefined target",
-				Auth:      "",
+				Auth:      []string{},
 			},
 		},
 	}

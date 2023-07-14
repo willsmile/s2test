@@ -23,12 +23,12 @@ type Reports []Report
 type Report struct {
 	result   result
 	target   string
-	auth     string
+	auth     []string
 	request  *myhttp.Request
 	response *myhttp.Response
 }
 
-func NewReport(result result, target string, auth string, req *myhttp.Request, resp *myhttp.Response) *Report {
+func NewReport(result result, target string, auth []string, req *myhttp.Request, resp *myhttp.Response) *Report {
 	return &Report{
 		result:   result,
 		target:   target,

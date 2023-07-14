@@ -11,8 +11,16 @@ type AuthData map[string]string
 // AuthDataset is a dataset to store AuthData
 type AuthDataset map[string]AuthData
 
-func (s AuthDataset) Select(auth string) AuthData {
-	return s[auth]
+func (set AuthDataset) Select(auth []string) AuthDataset {
+	result := make(AuthDataset)
+
+	for _, a := range auth {
+		if val, found := set[a]; found {
+			result[a] = val
+		}
+	}
+
+	return result
 }
 
 func (data AuthData) isCookie() bool {
@@ -23,7 +31,17 @@ func (data AuthData) isOAuth2() bool {
 	return data["type"] == AuthTypeOAuth2
 }
 
-func (data AuthData) NewAuthInfo() AuthInfo {
+func (set AuthDataset) NewAuthInfo() []AuthInfo {
+	var info []AuthInfo
+
+	for _, d := range set {
+		info = append(info, d.generate())
+	}
+
+	return info
+}
+
+func (data AuthData) generate() AuthInfo {
 	var info AuthInfo
 
 	if data.isCookie() {
@@ -31,5 +49,6 @@ func (data AuthData) NewAuthInfo() AuthInfo {
 	} else if data.isOAuth2() {
 		info = token{tokenPrefix: data["prefix"], tokenValue: data["value"]}
 	}
+
 	return info
 }

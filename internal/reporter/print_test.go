@@ -11,14 +11,14 @@ func TestReportPrint_ValidReport(t *testing.T) {
 	report1 := NewReport(
 		RequestSent,
 		"GET a sample post",
-		"",
+		[]string{},
 		&myhttp.Request{},
 		&myhttp.Response{},
 	)
 	report2 := NewReport(
 		RequestSent,
 		"GET a sample todo",
-		"",
+		[]string{},
 		&myhttp.Request{},
 		&myhttp.Response{},
 	)

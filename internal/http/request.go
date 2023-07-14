@@ -26,20 +26,22 @@ type Request struct {
 	Body    string
 }
 
-func NewRequest(endpoint Endpoint, auth AuthInfo, vbs Variables, ua string) *Request {
+func NewRequest(ept Endpoint, info []AuthInfo, vbs Variables, ua string) *Request {
 	req := &Request{
-		URL:     endpoint.URL,
-		Method:  endpoint.Method,
+		URL:     ept.URL,
+		Method:  ept.Method,
 		Headers: http.Header{},
 		Cookies: []*http.Cookie{},
 		Body:    "",
 	}
 
-	req.addHeaders(endpoint.Headers)
-	if auth != nil {
-		auth.attach(req)
+	req.addHeaders(ept.Headers)
+	if len(info) != 0 {
+		for _, i := range info {
+			i.attach(req)
+		}
 	}
-	req.setBody(endpoint.Body, vbs)
+	req.setBody(ept.Body, vbs)
 	req.setUserAgent(ua)
 
 	return req

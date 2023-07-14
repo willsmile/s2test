@@ -8,7 +8,7 @@ import (
 // Task is a task definition for test
 type Task struct {
 	TargetAPI string           `json:"targetAPI"`
-	Auth      string           `json:"auth"`
+	Auth      []string         `json:"auth"`
 	Variables myhttp.Variables `json:"variables"`
 }
 

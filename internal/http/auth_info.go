@@ -20,8 +20,7 @@ type token struct {
 
 func (c cookie) attach(req *Request) {
 	cookie := &http.Cookie{Name: c.cookieName, Value: c.cookieValue}
-	cookies := []*http.Cookie{cookie}
-	req.Cookies = cookies
+	req.Cookies = append(req.Cookies, cookie)
 }
 
 func (t token) attach(req *Request) {

@@ -13,7 +13,7 @@ func TestTaskPerform_existingTarget(t *testing.T) {
 	ua := createUserAgent()
 	task := Task{
 		TargetAPI: "GET a sample post",
-		Auth:      "",
+		Auth:      []string{},
 		Variables: myhttp.Variables{},
 	}
 
@@ -31,7 +31,7 @@ func TestTaskPerform_notExistingTarget(t *testing.T) {
 	ua := createUserAgent()
 	task := Task{
 		TargetAPI: "Not Existing Target",
-		Auth:      "",
+		Auth:      []string{},
 		Variables: myhttp.Variables{},
 	}
 
