@@ -6,14 +6,14 @@ import (
 	"testing"
 
 	"github.com/willsmile/s2test/internal/executor"
-	myhttp "github.com/willsmile/s2test/internal/http"
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 func TestLoadJSON_Store(t *testing.T) {
-	store := myhttp.Endpoints{}
-	err := LoadJSON("../../testdata/api.json", &store)
+	endpoints := storage.Endpoints{}
+	err := LoadJSON("../../testdata/api.json", &endpoints)
 	if err != nil {
-		t.Fatalf("LoadJSON(\"../../testdata/api.json\", &store), expected none error, got %s", err)
+		t.Fatalf("LoadJSON(\"../../testdata/api.json\", &endpoints), expected none error, got %s", err)
 	}
 }
 
@@ -27,17 +27,17 @@ func TestLoadJSON_Plan(t *testing.T) {
 }
 
 func TestLoadJSON_WithEmptyPath(t *testing.T) {
-	store := myhttp.Endpoints{}
-	err := LoadJSON("", &store)
+	endpoints := storage.Endpoints{}
+	err := LoadJSON("", &endpoints)
 	if !errors.Is(err, ErrEmptyPath) {
-		t.Fatalf("LoadJSON(\"\", &store), expected %s, got %s", ErrEmptyPath, err)
+		t.Fatalf("LoadJSON(\"\", &endpoints), expected %s, got %s", ErrEmptyPath, err)
 	}
 }
 
 func TestLoadJSON_WithInvalidPath(t *testing.T) {
-	store := myhttp.Endpoints{}
-	err := LoadJSON("../../testdata/invalid_api.json", &store)
+	endpoints := storage.Endpoints{}
+	err := LoadJSON("../../testdata/invalid_api.json", &endpoints)
 	if !errors.Is(err, ErrReadFile) {
-		t.Fatalf("LoadJSON(\"../../testdata/invalid_api.json\", &store), expected %s, got %s", ErrReadFile, err)
+		t.Fatalf("LoadJSON(\"../../testdata/invalid_api.json\", &endpoints), expected %s, got %s", ErrReadFile, err)
 	}
 }

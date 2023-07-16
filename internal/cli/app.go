@@ -9,8 +9,7 @@ import (
 	"github.com/willsmile/s2test/internal/config"
 	"github.com/willsmile/s2test/internal/executor"
 	"github.com/willsmile/s2test/internal/reporter"
-
-	myhttp "github.com/willsmile/s2test/internal/http"
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 const (
@@ -51,8 +50,8 @@ func New() *cli.App {
 		},
 		Action: func(c *cli.Context) error {
 			var (
-				plan  executor.Plan
-				store myhttp.Endpoints
+				plan      executor.Plan
+				endpoints storage.Endpoints
 			)
 
 			planPath := c.String("plan")
@@ -61,11 +60,11 @@ func New() *cli.App {
 			}
 
 			apiPath := plan.GetEndpointsPath(c.String("api"))
-			if err := config.LoadJSON(apiPath, &store); err != nil {
+			if err := config.LoadJSON(apiPath, &endpoints); err != nil {
 				return err
 			}
 
-			reports, err := plan.Execute(&store, appInfo())
+			reports, err := plan.Execute(&endpoints, appInfo())
 			if err != nil {
 				return err
 			}

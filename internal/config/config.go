@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/willsmile/s2test/internal/executor"
-	myhttp "github.com/willsmile/s2test/internal/http"
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 var (
@@ -17,7 +17,7 @@ var (
 )
 
 type Config interface {
-	executor.Plan | myhttp.Endpoints
+	executor.Plan | storage.Endpoints
 }
 
 func LoadJSON[T Config](path string, t *T) error {

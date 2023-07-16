@@ -5,18 +5,19 @@ import (
 	"testing"
 
 	myhttp "github.com/willsmile/s2test/internal/http"
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 func TestPlanExecute_WithTasks(t *testing.T) {
-	store := myhttp.Endpoints{
-		"GET a sample post": myhttp.Endpoint{
+	endpoints := storage.Endpoints{
+		"GET a sample post": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": myhttp.Endpoint{
+		"GET a sample todo": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
@@ -42,22 +43,22 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 	}
 
 	appInfo := "test"
-	_, err := plan.Execute(&store, appInfo)
+	_, err := plan.Execute(&endpoints, appInfo)
 	if err != nil {
-		t.Fatalf("plan.Execute(&store, appInfo), expected none error, got %s", err)
+		t.Fatalf("plan.Execute(&endpoints, appInfo), expected none error, got %s", err)
 	}
 }
 
 func TestPlanExecute_WithoutTasks(t *testing.T) {
-	store := myhttp.Endpoints{
-		"GET a sample post": myhttp.Endpoint{
+	endpoints := storage.Endpoints{
+		"GET a sample post": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": myhttp.Endpoint{
+		"GET a sample todo": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
@@ -74,8 +75,8 @@ func TestPlanExecute_WithoutTasks(t *testing.T) {
 	}
 
 	appInfo := "test"
-	_, err := plan.Execute(&store, appInfo)
+	_, err := plan.Execute(&endpoints, appInfo)
 	if !errors.Is(err, ErrNoTasksToExecute) {
-		t.Fatalf("plan.Execute(&store, appInfo), expected %s, got %s", ErrNoTasksToExecute, err)
+		t.Fatalf("plan.Execute(&endpoints, appInfo), expected %s, got %s", ErrNoTasksToExecute, err)
 	}
 }
