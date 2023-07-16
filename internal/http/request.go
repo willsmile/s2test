@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 var (
@@ -26,7 +28,7 @@ type Request struct {
 	Body    string
 }
 
-func NewRequest(ept Endpoint, info []AuthInfo, vbs Variables, ua string) *Request {
+func NewRequest(ept storage.Endpoint, info []AuthInfo, vbs Variables, ua string) *Request {
 	req := &Request{
 		URL:     ept.URL,
 		Method:  ept.Method,

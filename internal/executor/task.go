@@ -3,6 +3,7 @@ package executor
 import (
 	myhttp "github.com/willsmile/s2test/internal/http"
 	"github.com/willsmile/s2test/internal/reporter"
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 // Task is a task definition for test
@@ -13,7 +14,7 @@ type Task struct {
 }
 
 // Perform a task
-func (t Task) Perform(endpoints *myhttp.Endpoints, dataset *myhttp.AuthDataset, ua string) *reporter.Report {
+func (t Task) Perform(endpoints *storage.Endpoints, dataset *myhttp.AuthDataset, ua string) *reporter.Report {
 	request := myhttp.NewRequest(
 		endpoints.GetEndpoint(t.TargetAPI),
 		dataset.Select(t.Auth).NewAuthInfo(),

@@ -9,8 +9,7 @@ import (
 	"github.com/willsmile/s2test/internal/config"
 	"github.com/willsmile/s2test/internal/executor"
 	"github.com/willsmile/s2test/internal/reporter"
-
-	myhttp "github.com/willsmile/s2test/internal/http"
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 const (
@@ -52,7 +51,7 @@ func New() *cli.App {
 		Action: func(c *cli.Context) error {
 			var (
 				plan  executor.Plan
-				store myhttp.Endpoints
+				store storage.Endpoints
 			)
 
 			planPath := c.String("plan")

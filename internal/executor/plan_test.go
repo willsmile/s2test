@@ -5,18 +5,19 @@ import (
 	"testing"
 
 	myhttp "github.com/willsmile/s2test/internal/http"
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 func TestPlanExecute_WithTasks(t *testing.T) {
-	store := myhttp.Endpoints{
-		"GET a sample post": myhttp.Endpoint{
+	store := storage.Endpoints{
+		"GET a sample post": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": myhttp.Endpoint{
+		"GET a sample todo": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
@@ -49,15 +50,15 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 }
 
 func TestPlanExecute_WithoutTasks(t *testing.T) {
-	store := myhttp.Endpoints{
-		"GET a sample post": myhttp.Endpoint{
+	store := storage.Endpoints{
+		"GET a sample post": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": myhttp.Endpoint{
+		"GET a sample todo": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{

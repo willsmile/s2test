@@ -5,6 +5,7 @@ import (
 
 	myhttp "github.com/willsmile/s2test/internal/http"
 	"github.com/willsmile/s2test/internal/reporter"
+	"github.com/willsmile/s2test/internal/storage"
 )
 
 func TestTaskPerform_existingTarget(t *testing.T) {
@@ -43,16 +44,16 @@ func TestTaskPerform_notExistingTarget(t *testing.T) {
 	}
 }
 
-func createEndpoints() *myhttp.Endpoints {
-	return &myhttp.Endpoints{
-		"GET a sample post": myhttp.Endpoint{
+func createEndpoints() *storage.Endpoints {
+	return &storage.Endpoints{
+		"GET a sample post": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
 			Headers: map[string]string{
 				"Content-type": "application/json; charset=utf-8",
 			},
 		},
-		"GET a sample todo": myhttp.Endpoint{
+		"GET a sample todo": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/todos/1/",
 			Method: "GET",
 			Headers: map[string]string{
