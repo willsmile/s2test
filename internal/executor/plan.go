@@ -23,7 +23,7 @@ type Plan struct {
 }
 
 // Execute a plan
-func (p Plan) Execute(store *storage.Endpoints, info string) (reporter.Reports, error) {
+func (p Plan) Execute(endpoints *storage.Endpoints, info string) (reporter.Reports, error) {
 	var reports reporter.Reports
 
 	if len(p.Tasks) == 0 {
@@ -32,7 +32,7 @@ func (p Plan) Execute(store *storage.Endpoints, info string) (reporter.Reports, 
 
 	ua := p.GetUserAgent(info)
 	for _, task := range p.Tasks {
-		entity := task.Perform(store, &p.AuthDataset, ua)
+		entity := task.Perform(endpoints, &p.AuthDataset, ua)
 		reports = append(reports, *entity)
 	}
 

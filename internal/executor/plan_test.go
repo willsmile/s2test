@@ -9,7 +9,7 @@ import (
 )
 
 func TestPlanExecute_WithTasks(t *testing.T) {
-	store := storage.Endpoints{
+	endpoints := storage.Endpoints{
 		"GET a sample post": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
@@ -43,14 +43,14 @@ func TestPlanExecute_WithTasks(t *testing.T) {
 	}
 
 	appInfo := "test"
-	_, err := plan.Execute(&store, appInfo)
+	_, err := plan.Execute(&endpoints, appInfo)
 	if err != nil {
-		t.Fatalf("plan.Execute(&store, appInfo), expected none error, got %s", err)
+		t.Fatalf("plan.Execute(&endpoints, appInfo), expected none error, got %s", err)
 	}
 }
 
 func TestPlanExecute_WithoutTasks(t *testing.T) {
-	store := storage.Endpoints{
+	endpoints := storage.Endpoints{
 		"GET a sample post": storage.Endpoint{
 			URL:    "https://jsonplaceholder.typicode.com/posts/1",
 			Method: "GET",
@@ -75,8 +75,8 @@ func TestPlanExecute_WithoutTasks(t *testing.T) {
 	}
 
 	appInfo := "test"
-	_, err := plan.Execute(&store, appInfo)
+	_, err := plan.Execute(&endpoints, appInfo)
 	if !errors.Is(err, ErrNoTasksToExecute) {
-		t.Fatalf("plan.Execute(&store, appInfo), expected %s, got %s", ErrNoTasksToExecute, err)
+		t.Fatalf("plan.Execute(&endpoints, appInfo), expected %s, got %s", ErrNoTasksToExecute, err)
 	}
 }
